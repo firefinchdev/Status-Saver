@@ -6,12 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.softinit.whatsdirect.R
-import java.util.zip.Inflater
 
-class IntentFragment: Fragment() {
+class MessageFragment: Fragment() {
     companion object {
-        fun newInstance(): IntentFragment {
-            return IntentFragment()
+        fun newInstance(): MessageFragment {
+            return MessageFragment()
         }
     }
 

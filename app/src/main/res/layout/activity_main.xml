@@ -6,6 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".activities.MainActivity">
+
     <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
@@ -14,12 +15,14 @@
         <android.support.design.widget.AppBarLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:theme="@style/AppTheme2">
+                android:theme="@style/AppTheme">
 
         <android.support.design.widget.TabLayout
+                app:tabTextColor="@android:color/white"
+                app:tabIndicatorColor="@android:color/white"
                 android:id="@+id/mainTabLayout"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/sizeTabLayout"
+                android:layout_height="wrap_content"
                 app:tabMaxWidth="0dp"
                 app:tabGravity="fill"
                 app:tabMode="fixed"/>
