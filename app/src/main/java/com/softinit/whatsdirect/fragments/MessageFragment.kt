@@ -1,13 +1,13 @@
 package com.softinit.whatsdirect.fragments
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.softinit.whatsdirect.R
 
-class MessageFragment: Fragment() {
+class MessageFragment: androidx.fragment.app.Fragment() {
     companion object {
         fun newInstance(): MessageFragment {
             return MessageFragment()

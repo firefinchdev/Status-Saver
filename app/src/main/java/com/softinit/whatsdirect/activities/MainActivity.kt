@@ -1,16 +1,16 @@
 package com.softinit.whatsdirect.activities
 
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v4.view.ViewPager
+import androidx.viewpager.widget.ViewPager
 import com.softinit.whatsdirect.R
 import com.softinit.whatsdirect.adapters.MainViewPagerAdapter
-import android.support.design.widget.TabLayout
+import com.google.android.material.tabs.TabLayout
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var mMainViewPagerAdapter: MainViewPagerAdapter
-    private lateinit var mViewPager: ViewPager
+    private lateinit var mViewPager: androidx.viewpager.widget.ViewPager
     private lateinit var mTablayout: TabLayout
 
 
