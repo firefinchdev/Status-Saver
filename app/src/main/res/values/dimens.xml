@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="sizeTabLayout">70dp</dimen>
-    <dimen name="marginCardViewHorizontal">20px</dimen>
+    <dimen name="marginCardViewHorizontal">20dp</dimen>
+    <dimen name="margin_fragment_message">10dp</dimen>
 </resources>
