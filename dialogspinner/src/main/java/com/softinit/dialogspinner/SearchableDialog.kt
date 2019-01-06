@@ -1,5 +1,6 @@
 package com.softinit.dialogspinner
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -8,19 +9,26 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatDialogFragment
-import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 private const val ARG_ARRAY_ITEMS = "ARG_ARRAY_ITEMS"
 
-class SearchableDialog : AppCompatDialogFragment(), TextWatcher {
+class SearchableDialog : AppCompatDialogFragment, TextWatcher {
 
+    @SuppressLint("ValidFragment")
+    private constructor():super()               //This is so that no one can create instance by calling constructor
 
     private var mItems :ArrayList<SpinnerItem>? = null
     private lateinit var dialogView: View
     private lateinit var rvItemList: RecyclerView
     private lateinit var etSearch: EditText
+
+    public var adapter: SpinnerRecyclerViewAdapter
+        get() = rvItemList.adapter as SpinnerRecyclerViewAdapter
+        set(newAdapter) {
+            rvItemList.adapter = newAdapter
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,24 +44,15 @@ class SearchableDialog : AppCompatDialogFragment(), TextWatcher {
         rvItemList = dialogView.findViewById<RecyclerView>(R.id.rv_searchable_dialog).apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(activity)
-            adapter = SpinnerRecyclerViewAdapter(listOf(
-                object: SpinnerItem {
-                    override fun getImageId() = R.drawable.icon
-                    override fun getText() = "ANDROID"
-                }
-            ))
+            adapter = SpinnerRecyclerViewAdapter(mItems?.toList()?: emptyList())
         }
         etSearch = dialogView.findViewById<EditText>(R.id.et_searchable_dialog).apply { addTextChangedListener(this@SearchableDialog) }
         return dialogView
     }
 
-    override fun afterTextChanged(s: Editable?) {
+    override fun afterTextChanged(s: Editable?) { }
 
-    }
-
-    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
-    }
+    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) { }
 
     override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
         (rvItemList.adapter as SpinnerRecyclerViewAdapter).filter(s)

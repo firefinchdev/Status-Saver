@@ -7,9 +7,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class SpinnerRecyclerViewAdapter(var itemList: List<SpinnerItem>): RecyclerView.Adapter<SpinnerRecyclerViewAdapter.ItemViewHolder>() {
+class SpinnerRecyclerViewAdapter(private var itemList: List<SpinnerItem>): RecyclerView.Adapter<SpinnerRecyclerViewAdapter.ItemViewHolder>() {
 
-    var itemListFiltered = itemList
+    private var itemListFiltered = itemList
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         val itemView: View = LayoutInflater.from(parent.context).inflate(R.layout.list_item_rv, parent, false)
@@ -29,6 +29,16 @@ class SpinnerRecyclerViewAdapter(var itemList: List<SpinnerItem>): RecyclerView.
         itemListFiltered =
                 if (filterText == null || filterText.toString().trim().isEmpty()) itemList
                 else itemList.filter { it.getText().contains(filterText, true) }
+        notifyDataSetChanged()
+    }
+
+//    public fun getItemList() = itemList
+
+//    public fun getFilteredItemList() = itemListFiltered
+
+    public fun setItemList(newList: List<SpinnerItem>) {
+        itemList = newList
+        itemListFiltered = itemList
         notifyDataSetChanged()
     }
 
