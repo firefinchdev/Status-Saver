@@ -16,19 +16,18 @@ private const val ARG_ARRAY_ITEMS = "ARG_ARRAY_ITEMS"
 
 class SearchableDialog : AppCompatDialogFragment, TextWatcher {
 
-    @SuppressLint("ValidFragment")
-    private constructor():super()               //This is so that no one can create instance by calling constructor
+    constructor():super()               //This is so that no one can create instance by calling constructor
 
     private var mItems :ArrayList<SpinnerItem>? = null
     private lateinit var dialogView: View
     private lateinit var rvItemList: RecyclerView
     private lateinit var etSearch: EditText
 
-    public var adapter: SpinnerRecyclerViewAdapter
-        get() = rvItemList.adapter as SpinnerRecyclerViewAdapter
-        set(newAdapter) {
-            rvItemList.adapter = newAdapter
-        }
+//    public var adapter: SpinnerRecyclerViewAdapter
+//        get() = rvItemList.adapter as SpinnerRecyclerViewAdapter
+//        set(newAdapter) {
+//            rvItemList.adapter = newAdapter
+//        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,6 +56,10 @@ class SearchableDialog : AppCompatDialogFragment, TextWatcher {
     override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
         (rvItemList.adapter as SpinnerRecyclerViewAdapter).filter(s)
     }
+
+//    fun setAdapter(adapter: SpinnerRecyclerViewAdapter) {
+//        rvItemList.adapter = adapter
+//    }
 
     companion object {
         @JvmStatic

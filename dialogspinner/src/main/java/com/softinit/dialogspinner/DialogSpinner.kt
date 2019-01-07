@@ -42,9 +42,6 @@ class DialogSpinner : AppCompatSpinner, DialogInterface.OnClickListener, View.On
 //    constructor(context: Context, attrs: AttributeSet, fm: FragmentManager): super(context, attrs) {init(fm)}
 //    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int, fm: FragmentManager): super(context, attrs, defStyleAttr) {init(fm)}
 
-    override fun performClick(): Boolean {
-        return (this as View).performClick()
-    }
 
     // Cant set only spinner adapter, so no super.setAdapter()
     // Dont Use this method, instead use setAdapter(adapter: DialogSpinnerAdapter)
@@ -53,10 +50,10 @@ class DialogSpinner : AppCompatSpinner, DialogInterface.OnClickListener, View.On
         return
     }
 
-    fun setAdapter(adapter: DialogSpinnerAdapter)  {
-        super.setAdapter(adapter)
-        searchableDialog.adapter = SpinnerRecyclerViewAdapter(adapter.getItemList())
-    }
+//    fun setAdapter(adapter: DialogSpinnerAdapter)  {
+//        super.setAdapter(adapter)
+//        searchableDialog.setAdapter(SpinnerRecyclerViewAdapter(adapter.getItemList()))
+//    }
 
     //TODO: Do I need this?
     override fun onClick(dialog: DialogInterface?, which: Int) {

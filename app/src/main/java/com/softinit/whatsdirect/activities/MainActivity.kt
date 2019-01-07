@@ -22,14 +22,14 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setup()
 
-        val x = DialogSpinner(this, supportFragmentManager).apply {
-            setAdapter(DialogSpinnerAdapter(this@MainActivity, arrayListOf(
-                object: SpinnerItem {
-                    override fun getImageId() = R.drawable.ic_launcher_foreground
-                    override fun getText() = "ANDROID"
-                }
-            )))
-        }
+//        val x = DialogSpinner(this, supportFragmentManager).apply {
+//            setAdapter(DialogSpinnerAdapter(this@MainActivity, arrayListOf(
+//                object: SpinnerItem {
+//                    override fun getImageId() = R.drawable.ic_launcher_foreground
+//                    override fun getText() = "ANDROID"
+//                }
+//            )))
+//        }
 
 
 
