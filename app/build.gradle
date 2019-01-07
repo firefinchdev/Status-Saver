@@ -36,5 +36,5 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.1.0-alpha01'
 
 
-    implementation project(':dialogspinner')
+//    implementation project(':dialogspinner')
 }

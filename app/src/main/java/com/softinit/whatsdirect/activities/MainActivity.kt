@@ -5,16 +5,12 @@ import android.os.Bundle
 import com.softinit.whatsdirect.R
 import com.softinit.whatsdirect.adapters.MainViewPagerAdapter
 import com.google.android.material.tabs.TabLayout
-import com.softinit.dialogspinner.DialogSpinner
-import com.softinit.dialogspinner.DialogSpinnerAdapter
-import com.softinit.dialogspinner.SearchableDialog
-import com.softinit.dialogspinner.SpinnerItem
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var mMainViewPagerAdapter: MainViewPagerAdapter
     private lateinit var mViewPager: androidx.viewpager.widget.ViewPager
-    private lateinit var mTablayout: TabLayout
+    private lateinit var mTabLayout: TabLayout
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,9 +47,9 @@ class MainActivity : AppCompatActivity() {
     fun setupViewPager() {
         mMainViewPagerAdapter = MainViewPagerAdapter(supportFragmentManager)
         mViewPager = findViewById(R.id.mainViewPager)
-        mTablayout = findViewById(R.id.mainTabLayout)
+        mTabLayout = findViewById(R.id.mainTabLayout)
 
         mViewPager.adapter = mMainViewPagerAdapter
-        mTablayout.setupWithViewPager(mViewPager)
+        mTabLayout.setupWithViewPager(mViewPager)
     }
 }
