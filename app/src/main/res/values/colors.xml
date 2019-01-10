@@ -2,6 +2,8 @@
 <resources>
     <color name="colorPrimary">#075E54</color>
     <color name="colorPrimaryDark">#054D44</color>
-    <color name="colorAccent">#20C659</color>
+    <color name="colorAccent">#536dfe</color>
+    <color name="colorAccent2">#20C659</color>
     <color name="tabInactive">#83AFAA</color>
+    <color name="white">@android:color/white</color>
 </resources>

@@ -4,9 +4,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
+import androidx.appcompat.widget.AppCompatSpinner
 import com.softinit.whatsdirect.R
+import com.softinit.whatsdirect.adapters.CountrySpinnerAdapter
+import com.softinit.whatsdirect.utils.getAllCountries
 
 class MessageFragment: androidx.fragment.app.Fragment() {
+
+    private lateinit var etWhatsAppNum: EditText
+    private lateinit var etMessage: EditText
+    private lateinit var spinnerCountryCode: AppCompatSpinner
+    private lateinit var btnSend: Button
+
     companion object {
         fun newInstance(): MessageFragment {
             return MessageFragment()
@@ -17,6 +28,18 @@ class MessageFragment: androidx.fragment.app.Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_message, container, false)
+        val view: View =  inflater.inflate(R.layout.fragment_message, container, false)
+        setViewIds(view)
+        return view
+    }
+
+    private fun setViewIds(view: View) {
+        etWhatsAppNum = view.findViewById(R.id.edit_text_whatsapp_no)
+        etMessage = view.findViewById(R.id.edit_text_whatsapp_message)
+        btnSend = view.findViewById(R.id.btn_send)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
     }
 }

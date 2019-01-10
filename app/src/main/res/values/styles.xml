@@ -10,6 +10,11 @@
         <!--<item name="android:textSize">2sp</item>-->
     </style>
 
+    <style name="AppTheme.Button" parent="Widget.AppCompat.Button">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:backgroundTint">@color/colorAccent</item>
+    </style>
+
     <style name="AppTheme.ActionBar" parent="Widget.AppCompat.Light.ActionBar.Solid.Inverse">
         <item name="elevation">0dp</item>
         <item name="android:titleTextStyle">@style/AppTheme.ActionBar.Title</item>
@@ -18,6 +23,7 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="AppTheme.Base">
         <item name="actionBarStyle">@style/AppTheme.ActionBar</item>
+        <item name="android:buttonStyle">@style/AppTheme.Button</item>
     </style>
 
     <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
