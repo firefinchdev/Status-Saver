@@ -11,11 +11,8 @@ import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.Toast
-import androidx.appcompat.widget.AppCompatSpinner
 import com.hbb20.CountryCodePicker
 import com.softinit.whatsdirect.R
-import com.softinit.whatsdirect.adapters.CountrySpinnerAdapter
-import com.softinit.whatsdirect.utils.getAllCountries
 import java.net.URLEncoder
 
 class MessageFragment: androidx.fragment.app.Fragment(), View.OnClickListener {
