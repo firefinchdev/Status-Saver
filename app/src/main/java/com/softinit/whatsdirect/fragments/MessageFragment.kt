@@ -8,6 +8,8 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.widget.AppCompatSpinner
 import com.softinit.whatsdirect.R
+import com.softinit.whatsdirect.adapters.CountrySpinnerAdapter
+import com.softinit.whatsdirect.utils.getAllCountries
 
 class MessageFragment: androidx.fragment.app.Fragment() {
 
@@ -34,7 +36,6 @@ class MessageFragment: androidx.fragment.app.Fragment() {
     private fun setViewIds(view: View) {
         etWhatsAppNum = view.findViewById(R.id.edit_text_whatsapp_no)
         etMessage = view.findViewById(R.id.edit_text_whatsapp_message)
-        spinnerCountryCode = view.findViewById(R.id.spinner_country_selector)
         btnSend = view.findViewById(R.id.btn_send)
     }
 
