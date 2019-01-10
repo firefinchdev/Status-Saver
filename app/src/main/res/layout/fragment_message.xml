@@ -28,18 +28,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
             <com.hbb20.CountryCodePicker
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:ccp_showFullName="false"
-                app:ccp_showPhoneCode="true"
-                app:ccp_showNameCode="true"
-                ></com.hbb20.CountryCodePicker>
+                    android:id="@+id/spinner_country"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:ccp_showFullName="false"
+                    app:ccp_showPhoneCode="true"
+                    app:ccp_showNameCode="true"
+                    app:ccp_autoDetectCountry="true"
+                    app:ccp_countryPreference="US,IN,NZ"/>
 
         </LinearLayout>
             <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                 <EditText
+                        android:inputType="number"
                         android:id="@+id/edit_text_whatsapp_no"
                         android:hint="@string/enter_wa_no"
                         android:layout_width="match_parent"
@@ -49,6 +52,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                 <EditText
+                        android:inputType="textCapSentences"
                         android:id="@+id/edit_text_whatsapp_message"
                         android:maxHeight="180dp"
                         android:minHeight="70dp"
@@ -59,7 +63,17 @@
             <LinearLayout 
                     android:layout_width="match_parent" 
                     android:layout_height="wrap_content">
-                <View android:layout_weight="1" android:layout_width="0dp" android:layout_height="0dp"/>
+                <LinearLayout
+                        android:gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent">
+                    <CheckBox
+                            android:text="@string/prefer_business_app"
+                            android:id="@+id/cb_prefer_business"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                </LinearLayout>
                 <Button
                         android:id="@+id/btn_send"
                         android:text="@string/send"
