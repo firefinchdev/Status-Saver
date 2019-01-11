@@ -5,7 +5,7 @@
               android:layout_height="wrap_content">
 
     <ImageView
-            android:id="@+id/image_view_item"
+            android:id="@+id/iv_start_icon"
             android:src="@drawable/icon"
             android:background="@drawable/icon_background"
             android:layout_width="40dp"
@@ -13,7 +13,7 @@
             android:layout_margin="10dp"/>
 
     <TextView
-            android:id="@+id/text_view_item"
+            android:id="@+id/tv_phone_number"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
             android:textColor="@android:color/black"
             android:text="@string/app_name"

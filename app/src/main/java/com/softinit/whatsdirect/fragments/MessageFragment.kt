@@ -7,12 +7,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.CheckBox
-import android.widget.EditText
-import android.widget.Toast
+import android.widget.*
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.hbb20.CountryCodePicker
 import com.softinit.whatsdirect.R
+import com.softinit.whatsdirect.adapters.CallLogAdapter
+import com.softinit.whatsdirect.utils.getWhatsAppPackage
 import java.net.URLEncoder
 
 class MessageFragment: androidx.fragment.app.Fragment(), View.OnClickListener {
@@ -22,6 +23,7 @@ class MessageFragment: androidx.fragment.app.Fragment(), View.OnClickListener {
     private lateinit var btnSend: Button
     private lateinit var spinnerCountry: CountryCodePicker
     private lateinit var cbPreferBusiness: CheckBox
+    private lateinit var listViewCallLog: ListView
 
     companion object {
         fun newInstance(): MessageFragment {
@@ -35,9 +37,7 @@ class MessageFragment: androidx.fragment.app.Fragment(), View.OnClickListener {
     ): View? {
         val view: View =  inflater.inflate(R.layout.fragment_message, container, false)
         setViewIds(view)
-        initiate()
-
-
+        initiate(view)
         return view
     }
 
@@ -47,10 +47,12 @@ class MessageFragment: androidx.fragment.app.Fragment(), View.OnClickListener {
         btnSend = view.findViewById(R.id.btn_send)
         spinnerCountry = view.findViewById(R.id.spinner_country)
         cbPreferBusiness = view.findViewById(R.id.cb_prefer_business)
+        listViewCallLog = view.findViewById(R.id.list_view_call_log)
     }
 
-    private fun initiate() {
+    private fun initiate(view: View) {
         btnSend.setOnClickListener(this)
+        listViewCallLog.adapter = CallLogAdapter(context!!)
     }
 
     override fun onClick(v: View?) {
@@ -67,7 +69,7 @@ class MessageFragment: androidx.fragment.app.Fragment(), View.OnClickListener {
             val message = etMessage.text.toString()
             val intent: Intent = Intent(Intent.ACTION_VIEW)
             val url = "https://api.whatsapp.com/send?phone=$phone&text=${URLEncoder.encode(message, "UTF-8")}"
-            intent.setPackage(getWhatsAppPackage(preferBusiness, packageManager))
+            intent.setPackage(getWhatsAppPackage(context, preferBusiness, packageManager))
             intent.data = Uri.parse(url)
             intent.resolveActivity(packageManager)?.let {
                 context?.startActivity(intent);
@@ -76,28 +78,6 @@ class MessageFragment: androidx.fragment.app.Fragment(), View.OnClickListener {
             }
         }
 
-    }
-
-    private fun getWhatsAppPackage(preferBusiness: Boolean = false, _packageManager: PackageManager?): String {
-        val pm = _packageManager ?: context?.packageManager
-        val waBusiness = "com.whatsapp.w4b"
-        val wa = "com.whatsapp"
-        return pm?.let l@{
-            if (preferBusiness) {
-                try {
-                    pm.getPackageInfo(waBusiness, 0)
-                    return@l waBusiness
-                } catch (e: PackageManager.NameNotFoundException) {
-
-                }
-            }
-            try {
-                pm.getPackageInfo(wa, 0)
-                return@l wa
-            } catch (e: PackageManager.NameNotFoundException) {
-                throw PackageManager.NameNotFoundException("WhatsApp Not Found")
-            }
-        } ?: throw Error("Package Manager is null")
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

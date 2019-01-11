@@ -9,4 +9,5 @@
     <string name="search">Search...</string>
     <string name="send">SEND</string>
     <string name="prefer_business_app">Prefer Business App*</string>
+    <string name="sel_from_call_log">Select from call log</string>
 </resources>

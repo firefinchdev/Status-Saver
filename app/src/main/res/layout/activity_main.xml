@@ -28,6 +28,7 @@
                 app:tabMaxWidth="0dp"
                 app:tabGravity="fill"
                 app:tabMode="fixed"
+                app:layout_scrollFlags="scroll|enterAlways"
                 app:tabSelectedTextColor="@android:color/white"
                 app:tabTextAppearance="@style/MainTabLayoutTextStyle"/>
         </com.google.android.material.appbar.AppBarLayout>
