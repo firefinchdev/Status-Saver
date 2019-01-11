@@ -3,11 +3,11 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="sel_cc_enter_wa_no">Select Country code and WhatsApp number</string>
+    <string name="sel_cc_enter_wa_no">Select country code and WhatsApp number</string>
     <string name="enter_wa_no">Enter WhatsApp number</string>
     <string name="enter_msg">Enter Message</string>
     <string name="search">Search...</string>
     <string name="send">SEND</string>
     <string name="prefer_business_app">Prefer Business App*</string>
-    <string name="sel_from_call_log">Select from call log</string>
+    <string name="sel_from_call_log">Select from recent call logs</string>
 </resources>

@@ -14,10 +14,11 @@ import com.hbb20.CountryCodePicker
 import com.softinit.whatsdirect.R
 import com.softinit.whatsdirect.adapters.CallLogAdapter
 import com.softinit.whatsdirect.adapters.CallLogRVAdapter
+import com.softinit.whatsdirect.interfaces.OnCallLogSelectedListener
 import com.softinit.whatsdirect.utils.getWhatsAppPackage
 import java.net.URLEncoder
 
-class MessageFragment: androidx.fragment.app.Fragment(), View.OnClickListener {
+class MessageFragment: androidx.fragment.app.Fragment(), View.OnClickListener, OnCallLogSelectedListener {
 
     private lateinit var etWhatsAppNum: EditText
     private lateinit var etMessage: EditText
@@ -54,7 +55,7 @@ class MessageFragment: androidx.fragment.app.Fragment(), View.OnClickListener {
     private fun initiate(view: View) {
         btnSend.setOnClickListener(this)
         listViewCallLog.layoutManager = LinearLayoutManager(context)
-        listViewCallLog.adapter = CallLogRVAdapter(context!!)
+        listViewCallLog.adapter = CallLogRVAdapter(context!!, this)
     }
 
     override fun onClick(v: View?) {
@@ -80,6 +81,10 @@ class MessageFragment: androidx.fragment.app.Fragment(), View.OnClickListener {
             }
         }
 
+    }
+
+    override fun onCallLogSelect(phoneNumber: String) {
+        Toast.makeText(context, phoneNumber, Toast.LENGTH_SHORT).show()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

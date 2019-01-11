@@ -1,138 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto" android:background="@drawable/background2"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:background="@drawable/background2"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="@dimen/margin_msg_fragment">
-    <androidx.coordinatorlayout.widget.CoordinatorLayout android:layout_width="match_parent"
-                                                         android:layout_height="match_parent">
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
         <com.google.android.material.appbar.AppBarLayout
                 android:id="@+id/appbar"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_height="wrap_content"
                 android:fitsSystemWindows="true">
-        <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
-        <androidx.cardview.widget.CardView
-                android:elevation="20dp"
-                app:cardElevation="5dp"
-                android:layout_width="match_parent"
-                android:layout_height="300dp">
-            <LinearLayout
-                    android:padding="@dimen/padding_card_view_fragment_msg"
-                    android:orientation="vertical"
+            <com.google.android.material.appbar.CollapsingToolbarLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-                <TextView
-                        android:gravity="center"
-                        android:text="@string/sel_cc_enter_wa_no"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
-                        android:paddingBottom="10dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-                <LinearLayout
-                        android:orientation="horizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                    <com.hbb20.CountryCodePicker
-                            android:id="@+id/spinner_country"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            app:ccp_showFullName="false"
-                            app:ccp_showPhoneCode="true"
-                            app:ccp_showNameCode="true"
-                            app:ccp_autoDetectCountry="true"
-                            app:ccp_countryPreference="US,IN,NZ"/>
-
-                </LinearLayout>
-                <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                    <EditText
-                            android:inputType="number"
-                            android:id="@+id/edit_text_whatsapp_no"
-                            android:hint="@string/enter_wa_no"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"/>
-                </com.google.android.material.textfield.TextInputLayout>
-                <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                    <EditText
-                            android:inputType="textCapSentences"
-                            android:id="@+id/edit_text_whatsapp_message"
-                            android:maxHeight="180dp"
-                            android:minHeight="70dp"
-                            android:hint="@string/enter_msg"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"/>
-                </com.google.android.material.textfield.TextInputLayout>
-                <LinearLayout
+                    android:layout_height="wrap_content"
+                    app:layout_scrollFlags="scroll|exitUntilCollapsed">
+                <androidx.cardview.widget.CardView
+                        android:elevation="20dp"
+                        app:cardElevation="5dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
                     <LinearLayout
-                            android:gravity="center_vertical"
-                            android:layout_weight="1"
-                            android:layout_width="0dp"
+                            android:padding="@dimen/padding_card_view_fragment_msg"
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
                             android:layout_height="match_parent">
-                        <CheckBox
-                                android:text="@string/prefer_business_app"
-                                android:id="@+id/cb_prefer_business"
-                                android:layout_width="wrap_content"
+                        <TextView
+                                android:gravity="center"
+                                android:text="@string/sel_cc_enter_wa_no"
+                                android:paddingLeft="10dp"
+                                android:paddingRight="10dp"
+                                android:paddingBottom="10dp"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"/>
+                        <LinearLayout
+                                android:orientation="horizontal"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+                            <com.hbb20.CountryCodePicker
+                                    android:id="@+id/spinner_country"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    app:ccp_showFullName="false"
+                                    app:ccp_showPhoneCode="true"
+                                    app:ccp_showNameCode="true"
+                                    app:ccp_autoDetectCountry="true"
+                                    app:ccp_countryPreference="US,IN,NZ"/>
+
+                        </LinearLayout>
+                        <com.google.android.material.textfield.TextInputLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+                            <EditText
+                                    android:inputType="number"
+                                    android:id="@+id/edit_text_whatsapp_no"
+                                    android:hint="@string/enter_wa_no"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"/>
+                        </com.google.android.material.textfield.TextInputLayout>
+                        <com.google.android.material.textfield.TextInputLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+                            <EditText
+                                    android:inputType="textCapSentences"
+                                    android:id="@+id/edit_text_whatsapp_message"
+                                    android:maxHeight="180dp"
+                                    android:minHeight="70dp"
+                                    android:hint="@string/enter_msg"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"/>
+                        </com.google.android.material.textfield.TextInputLayout>
+                        <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+                            <LinearLayout
+                                    android:gravity="center_vertical"
+                                    android:layout_weight="1"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent">
+                                <CheckBox
+                                        android:text="@string/prefer_business_app"
+                                        android:id="@+id/cb_prefer_business"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"/>
+                            </LinearLayout>
+                            <Button
+                                    android:id="@+id/btn_send"
+                                    android:text="@string/send"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+                        </LinearLayout>
                     </LinearLayout>
-                    <Button
-                            android:id="@+id/btn_send"
-                            android:text="@string/send"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
-                </LinearLayout>
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-        <androidx.appcompat.widget.Toolbar
-                android:backgroundTint="@color/colorAccent"
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                app:layout_collapseMode="pin"/>
-    </com.google.android.material.appbar.CollapsingToolbarLayout>
+                </androidx.cardview.widget.CardView>
+                <androidx.appcompat.widget.Toolbar
+                        android:backgroundTint="@color/colorAccent"
+                        android:id="@+id/toolbar"
+                        android:layout_width="match_parent"
+                        android:layout_height="?attr/actionBarSize"
+                        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                        app:layout_collapseMode="pin"/>
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
         </com.google.android.material.appbar.AppBarLayout>
         <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fillViewport="true"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
-        <androidx.cardview.widget.CardView
-                android:layout_weight="1"
-                android:elevation="20dp"
-                app:cardElevation="5dp"
-                android:layout_width="match_parent"
-                android:layout_marginTop="@dimen/margin_msg_fragment"
-                android:layout_height="match_parent">
-
-            <LinearLayout
-                    android:orientation="vertical"
-                    android:padding="@dimen/padding_card_view_fragment_msg"
+            <androidx.cardview.widget.CardView
+                    android:layout_weight="1"
+                    android:elevation="20dp"
+                    app:cardElevation="5dp"
                     android:layout_width="match_parent"
+                    android:layout_marginTop="@dimen/margin_msg_fragment"
                     android:layout_height="match_parent">
-                <TextView
-                        android:text="@string/sel_from_call_log"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-                <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/list_view_call_log"
-                        android:layout_weight="1"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"/>
-            </LinearLayout>
 
-        </androidx.cardview.widget.CardView>
+                <LinearLayout
+                        android:orientation="vertical"
+                        android:padding="@dimen/padding_card_view_fragment_msg"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                    <TextView
+                            android:text="@string/sel_from_call_log"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+                    <androidx.recyclerview.widget.RecyclerView
+                            android:nestedScrollingEnabled="false"
+                            tools:listitem="@layout/list_item_call_log"
+                            android:id="@+id/list_view_call_log"
+                            android:layout_weight="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"/>
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
         </androidx.core.widget.NestedScrollView>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

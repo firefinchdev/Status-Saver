@@ -4,6 +4,8 @@
     <color name="colorPrimaryDark">#054D44</color>
     <color name="colorAccent">#536dfe</color>
     <color name="colorAccent2">#20C659</color>
+    <color name="colorListItemCallLog">#1a237e</color>
     <color name="tabInactive">#83AFAA</color>
+    <color name="arrowCallBackground">#c0c8f5</color>
     <color name="white">@android:color/white</color>
 </resources>
