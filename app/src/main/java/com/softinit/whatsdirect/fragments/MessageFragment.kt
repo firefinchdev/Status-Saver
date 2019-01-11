@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.hbb20.CountryCodePicker
 import com.softinit.whatsdirect.R
 import com.softinit.whatsdirect.adapters.CallLogAdapter
+import com.softinit.whatsdirect.adapters.CallLogRVAdapter
 import com.softinit.whatsdirect.utils.getWhatsAppPackage
 import java.net.URLEncoder
 
@@ -23,7 +24,7 @@ class MessageFragment: androidx.fragment.app.Fragment(), View.OnClickListener {
     private lateinit var btnSend: Button
     private lateinit var spinnerCountry: CountryCodePicker
     private lateinit var cbPreferBusiness: CheckBox
-    private lateinit var listViewCallLog: ListView
+    private lateinit var listViewCallLog: RecyclerView
 
     companion object {
         fun newInstance(): MessageFragment {
@@ -52,7 +53,8 @@ class MessageFragment: androidx.fragment.app.Fragment(), View.OnClickListener {
 
     private fun initiate(view: View) {
         btnSend.setOnClickListener(this)
-        listViewCallLog.adapter = CallLogAdapter(context!!)
+        listViewCallLog.layoutManager = LinearLayoutManager(context)
+        listViewCallLog.adapter = CallLogRVAdapter(context!!)
     }
 
     override fun onClick(v: View?) {
