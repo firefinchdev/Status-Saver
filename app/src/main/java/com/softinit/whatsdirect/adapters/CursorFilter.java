@@ -3,6 +3,8 @@ package com.softinit.whatsdirect.adapters;
 import android.database.Cursor;
 import android.widget.Filter;
 
+
+//Not Used as CursorRecyclerAdapter is also not used
 class CursorFilter extends Filter {
 
     CursorFilterClient mClient;

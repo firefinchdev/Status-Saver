@@ -31,7 +31,7 @@ import android.widget.FilterQueryProvider;
 import android.widget.Filterable;
 import androidx.recyclerview.widget.RecyclerView;
 
-
+//Not Used
 public abstract class CursorRecyclerAdapter<VH
 		extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<VH>
 implements Filterable, CursorFilter.CursorFilterClient {
