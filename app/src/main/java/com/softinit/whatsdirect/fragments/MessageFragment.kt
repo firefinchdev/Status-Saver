@@ -4,6 +4,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,10 +13,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.hbb20.CountryCodePicker
 import com.softinit.whatsdirect.R
-import com.softinit.whatsdirect.adapters.CallLogAdapter
 import com.softinit.whatsdirect.adapters.CallLogRVAdapter
 import com.softinit.whatsdirect.interfaces.OnCallLogSelectedListener
 import com.softinit.whatsdirect.utils.getWhatsAppPackage
+import com.softinit.whatsdirect.utils.setAdapterWithViewHeight
+import java.lang.Exception
 import java.net.URLEncoder
 
 class MessageFragment: androidx.fragment.app.Fragment(), View.OnClickListener, OnCallLogSelectedListener {
@@ -25,7 +27,9 @@ class MessageFragment: androidx.fragment.app.Fragment(), View.OnClickListener, O
     private lateinit var btnSend: Button
     private lateinit var spinnerCountry: CountryCodePicker
     private lateinit var cbPreferBusiness: CheckBox
-    private lateinit var listViewCallLog: RecyclerView
+    private var rvCallLog: RecyclerView? = null
+
+    private val listItemCallLogHeight = R.dimen.height_item_call_item  //Change when updating list_item_call_log.xml
 
     companion object {
         fun newInstance(): MessageFragment {
@@ -49,13 +53,16 @@ class MessageFragment: androidx.fragment.app.Fragment(), View.OnClickListener, O
         btnSend = view.findViewById(R.id.btn_send)
         spinnerCountry = view.findViewById(R.id.spinner_country)
         cbPreferBusiness = view.findViewById(R.id.cb_prefer_business)
-        listViewCallLog = view.findViewById(R.id.list_view_call_log)
+        rvCallLog = view.findViewById(R.id.rv_call_log)
     }
 
     private fun initiate(view: View) {
         btnSend.setOnClickListener(this)
-        listViewCallLog.layoutManager = LinearLayoutManager(context)
-        listViewCallLog.adapter = CallLogRVAdapter(context!!, this)
+        rvCallLog?.layoutManager = LinearLayoutManager(context)
+        rvCallLog?.setAdapterWithViewHeight(CallLogRVAdapter(context!!, this),
+            activity?.resources?.getDimension(listItemCallLogHeight)?.toInt()
+        )
+//        rvCallLog?.adapter = CallLogRVAdapter(context!!, this)
     }
 
     override fun onClick(v: View?) {
@@ -72,12 +79,16 @@ class MessageFragment: androidx.fragment.app.Fragment(), View.OnClickListener, O
             val message = etMessage.text.toString()
             val intent: Intent = Intent(Intent.ACTION_VIEW)
             val url = "https://api.whatsapp.com/send?phone=$phone&text=${URLEncoder.encode(message, "UTF-8")}"
-            intent.setPackage(getWhatsAppPackage(context, preferBusiness, packageManager))
-            intent.data = Uri.parse(url)
-            intent.resolveActivity(packageManager)?.let {
-                context?.startActivity(intent);
-            } ?: run {
-                Toast.makeText(context, "WhatsApp not found", Toast.LENGTH_SHORT).show()
+            try {
+                intent.setPackage(getWhatsAppPackage(context, preferBusiness, packageManager))
+                intent.data = Uri.parse(url)
+                intent.resolveActivity(packageManager)?.let {
+                    context?.startActivity(intent)
+                } ?: run {
+                    Toast.makeText(context, "WhatsApp not found", Toast.LENGTH_SHORT).apply { setGravity(Gravity.TOP, 0, 0) }.show()
+                }
+            } catch (e: PackageManager.NameNotFoundException) {
+                Toast.makeText(context, "WhatsApp not found", Toast.LENGTH_SHORT).apply { setGravity(Gravity.TOP, 0, 0) }.show()
             }
         }
 

@@ -22,16 +22,19 @@ import java.util.*
 private const val LIMIT = 30
 
 class CallLogRVAdapter : CursorRecyclerViewAdapter<CallLogRVAdapter.CallLogViewHolder> {
+    companion object {
+        const val layoutResId: Int = R.layout.list_item_call_log
+    }
     private var context: Context
-    private var callLogSelectedListener: OnCallLogSelectedListener
+    private var callLogSelectedListener: OnCallLogSelectedListener?
 
-    constructor(_context: Context, _callLogSelectedListener: OnCallLogSelectedListener): super(_context, getCallLogCursor(_context)) {
+    constructor(_context: Context, _callLogSelectedListener: OnCallLogSelectedListener?): super(_context, getCallLogCursor(_context)) {
         context = _context
         callLogSelectedListener = _callLogSelectedListener
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CallLogViewHolder {
-        val view: View = LayoutInflater.from(context).inflate(R.layout.list_item_call_log, parent, false)
+        val view: View = LayoutInflater.from(context).inflate(layoutResId, parent, false)
         return CallLogViewHolder(view)
     }
 
@@ -42,6 +45,10 @@ class CallLogRVAdapter : CursorRecyclerViewAdapter<CallLogRVAdapter.CallLogViewH
     override fun getItemCount(): Int {
         val count = super.getItemCount()
         return if (count < LIMIT) count else LIMIT
+    }
+
+    fun setOnCallLogSelectedListener(listener: OnCallLogSelectedListener) {
+        callLogSelectedListener = listener
     }
 
     inner class CallLogViewHolder: RecyclerView.ViewHolder {
@@ -81,7 +88,7 @@ class CallLogRVAdapter : CursorRecyclerViewAdapter<CallLogRVAdapter.CallLogViewH
                 else -> R.drawable.arrow_outgoing
             })
 
-            llRoot.setOnClickListener { callLogSelectedListener.onCallLogSelect(phoneNum) }
+            llRoot.setOnClickListener { callLogSelectedListener?.onCallLogSelect(phoneNum) }
         }
     }
 }
