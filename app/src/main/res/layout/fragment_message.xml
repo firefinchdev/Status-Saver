@@ -112,7 +112,6 @@
                 android:fillViewport="true"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
             <androidx.cardview.widget.CardView
-                    android:layout_weight="1"
                     android:elevation="20dp"
                     app:cardElevation="5dp"
                     android:layout_width="match_parent"
@@ -131,7 +130,7 @@
                     <androidx.recyclerview.widget.RecyclerView
                             android:nestedScrollingEnabled="false"
                             tools:listitem="@layout/list_item_call_log"
-                            android:id="@+id/list_view_call_log"
+                            android:id="@+id/rv_call_log"
                             android:layout_weight="1"
                             android:layout_width="match_parent"
                             android:layout_height="0dp"/>

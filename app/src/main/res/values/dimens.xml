@@ -4,4 +4,5 @@
     <dimen name="marginCardViewHorizontal">20dp</dimen>
     <dimen name="margin_msg_fragment">10dp</dimen>
     <dimen name="padding_card_view_fragment_msg">10dp</dimen>
+    <dimen name="height_item_call_item">65dp</dimen>
 </resources>
