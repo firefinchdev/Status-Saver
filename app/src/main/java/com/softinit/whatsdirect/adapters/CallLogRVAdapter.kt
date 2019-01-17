@@ -3,11 +3,9 @@ package com.softinit.whatsdirect.adapters
 import android.content.Context
 import android.database.Cursor
 import android.provider.CallLog
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CursorAdapter
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -15,7 +13,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.softinit.whatsdirect.R
 import com.softinit.whatsdirect.interfaces.OnCallLogSelectedListener
 import com.softinit.whatsdirect.utils.getCallLogCursor
-import kotlinx.android.synthetic.main.fragment_message.view.*
+import io.michaelrocks.libphonenumber.android.PhoneNumberUtil
+import io.michaelrocks.libphonenumber.android.Phonenumber
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -88,7 +87,11 @@ class CallLogRVAdapter : CursorRecyclerViewAdapter<CallLogRVAdapter.CallLogViewH
                 else -> R.drawable.arrow_outgoing
             })
 
-            llRoot.setOnClickListener { callLogSelectedListener?.onCallLogSelect(phoneNum) }
+            llRoot.setOnClickListener {
+                val phoneNumberUtil = PhoneNumberUtil.createInstance(context)
+                val phoneNumber: Phonenumber.PhoneNumber = phoneNumberUtil.parse(phoneNum, callLogSelectedListener?.getDefaultCallLogCountryCode())
+                callLogSelectedListener?.onCallLogSelect(phoneNumber)
+            }
         }
     }
 }
