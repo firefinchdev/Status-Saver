@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
+        android:id="@+id/root_fragment_message"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
@@ -9,6 +10,7 @@
         android:layout_height="match_parent"
         android:padding="@dimen/margin_msg_fragment">
     <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:id="@+id/coordinator_fragment_message"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
         <com.google.android.material.appbar.AppBarLayout
@@ -107,6 +109,7 @@
             </com.google.android.material.appbar.CollapsingToolbarLayout>
         </com.google.android.material.appbar.AppBarLayout>
         <androidx.core.widget.NestedScrollView
+                android:id="@+id/nested_scroll_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fillViewport="true"
