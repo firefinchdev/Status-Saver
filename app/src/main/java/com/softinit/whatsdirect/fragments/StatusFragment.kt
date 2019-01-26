@@ -1,5 +1,6 @@
 package com.softinit.whatsdirect.fragments
 
+import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -38,7 +39,7 @@ class StatusFragment: androidx.fragment.app.Fragment() {
     private fun initiate(view: View) {
         rvStatus.layoutManager = GridLayoutManager(context, calculateNoOfColumns(context!!, 180) //R.dimen.height_status_thumbnail
                                         .let { if (it > 0) it else 1 })   //Minimum 1
-        rvStatus.adapter = StatusRecyclerAdapter(context!!, StatusRecyclerAdapter.WHATSAPP_DIR)
+        rvStatus.adapter = StatusRecyclerAdapter((activity as Activity), StatusRecyclerAdapter.WHATSAPP_DIR) { rvStatus.smoothScrollToPosition(0) }
     }
 
 }

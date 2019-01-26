@@ -11,6 +11,7 @@ import com.softinit.whatsdirect.adapters.StatusRecyclerAdapter
 import java.io.File
 
 class ImageViewHolder: StatusRecyclerAdapter.StatusViewHolder {
+
     companion object {
         @JvmStatic
         fun inflateView(context: Context, parent: ViewGroup): ImageViewHolder = ImageViewHolder(context, LayoutInflater.from(context)
@@ -18,10 +19,12 @@ class ImageViewHolder: StatusRecyclerAdapter.StatusViewHolder {
     }
 
     val context: Context
+    val view: View
     val ivStatus: ImageView
 
-    constructor(context: Context, view: View): super(view) {
+    constructor(context: Context, _view: View): super(_view) {
         this.context = context
+        this.view = _view
         ivStatus = view.findViewById(R.id.iv_status_image)
     }
     override fun bindView(file: File) {
@@ -29,6 +32,8 @@ class ImageViewHolder: StatusRecyclerAdapter.StatusViewHolder {
             .load(file)
             .into(ivStatus)
     }
+
+    override fun setOnClickListener(listener: View.OnClickListener) = view.setOnClickListener(listener)
 
     override fun statusType(): Int = StatusRecyclerAdapter.TYPE_IMAGE
 }
