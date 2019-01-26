@@ -8,6 +8,7 @@ import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.softinit.whatsdirect.R
 import com.softinit.whatsdirect.adapters.StatusRecyclerAdapter
+import com.softinit.whatsdirect.utils.FileType
 import java.io.File
 
 class ImageViewHolder: StatusRecyclerAdapter.StatusViewHolder {
@@ -35,5 +36,5 @@ class ImageViewHolder: StatusRecyclerAdapter.StatusViewHolder {
 
     override fun setOnClickListener(listener: View.OnClickListener) = view.setOnClickListener(listener)
 
-    override fun statusType(): Int = StatusRecyclerAdapter.TYPE_IMAGE
+    override fun statusType(): Int = FileType.TYPE_IMAGE
 }
