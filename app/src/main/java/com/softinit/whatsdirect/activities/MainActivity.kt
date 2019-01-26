@@ -33,4 +33,14 @@ class MainActivity : AppCompatActivity() {
         mViewPager.adapter = mMainViewPagerAdapter
         mTabLayout.setupWithViewPager(mViewPager)
     }
+    //TODO: Dont allow SEND btn if phone number is black
+    //TODO: Remove keyboard on fragment scroll
+    //TODO: Last selected country
+    override fun onBackPressed() {
+        if (mViewPager.currentItem != 0) {
+            mViewPager.setCurrentItem(0, true)
+        } else {
+            super.onBackPressed()
+        }
+    }
 }

@@ -85,7 +85,6 @@ class MessageFragment: androidx.fragment.app.Fragment(), View.OnClickListener, O
         val packageManager: PackageManager? = context?.packageManager
         if (packageManager != null) {
             val phone = "${spinnerCountry.selectedCountryCode}${etWhatsAppNum.text}"
-            Toast.makeText(context, etWhatsAppNum.text.toString(), Toast.LENGTH_SHORT).show()
             val message = etMessage.text.toString()
             val intent: Intent = Intent(Intent.ACTION_VIEW)
             val url = "https://api.whatsapp.com/send?phone=$phone&text=${URLEncoder.encode(message, "UTF-8")}"

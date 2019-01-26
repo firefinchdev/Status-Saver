@@ -11,6 +11,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.softinit.whatsdirect.activities.PreviewActivity
+import com.softinit.whatsdirect.utils.FileType.TYPE_IMAGE
+import com.softinit.whatsdirect.utils.FileType.TYPE_VIDEO
+import com.softinit.whatsdirect.utils.FileType.getFileType
+import com.softinit.whatsdirect.utils.FileType.isFileImageVideo
 import com.softinit.whatsdirect.viewholders.ImageViewHolder
 import com.softinit.whatsdirect.viewholders.VideoViewHolder
 import java.io.File
@@ -19,12 +23,8 @@ import java.net.URLConnection
 
 class StatusRecyclerAdapter: Adapter<StatusRecyclerAdapter.StatusViewHolder> {
     companion object {
-        const val TYPE_DIRECTORY = 1
-        const val TYPE_IMAGE = 2
-        const val TYPE_VIDEO = 3
-        const val TYPE_OTHER = 4
-//        val WHATSAPP_DIR: File = File(Environment.getExternalStorageDirectory(), "WhatsApp/Media/.Statuses")
-        val WHATSAPP_DIR: File = File(Environment.getExternalStorageDirectory(), "WhatsApp/Media/.status_copy")
+        val WHATSAPP_DIR: File = File(Environment.getExternalStorageDirectory(), "WhatsApp/Media/.Statuses")    //TODO: Fix FC when this directory is not available
+//        val WHATSAPP_DIR: File = File(Environment.getExternalStorageDirectory(), "WhatsApp/Media/.status_copy")
     }
 
     private var activity: Activity
@@ -34,7 +34,7 @@ class StatusRecyclerAdapter: Adapter<StatusRecyclerAdapter.StatusViewHolder> {
     constructor(activity: Activity, fileDirectory: File, addFileAction: (()-> Unit)? = null):super() {
         if (!fileDirectory.isDirectory) throw Error("Fuck You! I expected a directory.")
         this.activity = activity
-        this.fileList = fileDirectory.listFiles().filter { f -> getFileType(f).let { it == TYPE_IMAGE || it == TYPE_VIDEO } }.toMutableList()
+        this.fileList = fileDirectory.listFiles().filter { isFileImageVideo(it) }.toMutableList()
         fileObserver = object: FileObserver(fileDirectory.absolutePath, FileObserver.CREATE) {
             override fun onEvent(event: Int, path: String?) {
                 when (event) {
@@ -68,7 +68,7 @@ class StatusRecyclerAdapter: Adapter<StatusRecyclerAdapter.StatusViewHolder> {
         holder.bindView(file)
         holder.setOnClickListener(View.OnClickListener {
             val i: Intent = Intent(activity, PreviewActivity::class.java)
-            i.putExtra(PreviewActivity.INTENT_EXTRA_PATH, file.absolutePath)
+            i.putExtra(PreviewActivity.INTENT_EXTRA_FILE_ABSOLUTE_PATH, file.absolutePath)
             activity.startActivity(i)
         })
     }
@@ -77,15 +77,6 @@ class StatusRecyclerAdapter: Adapter<StatusRecyclerAdapter.StatusViewHolder> {
 
     override fun getItemViewType(position: Int): Int {
         return getFileType(fileList[position])
-    }
-
-    private fun getFileType(file: File): Int {
-        if (file.isDirectory) return TYPE_DIRECTORY
-        URLConnection.guessContentTypeFromName(file.name).let {
-            if (it.startsWith("image")) return TYPE_IMAGE
-            if (it.startsWith("video")) return TYPE_VIDEO
-        }
-        return TYPE_OTHER
     }
 
     abstract class StatusViewHolder: RecyclerView.ViewHolder {

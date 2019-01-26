@@ -15,4 +15,5 @@
             android:layout_height="@dimen/height_status_thumbnail"
             android:scaleType="centerCrop"/>
 
+
 </androidx.cardview.widget.CardView>
