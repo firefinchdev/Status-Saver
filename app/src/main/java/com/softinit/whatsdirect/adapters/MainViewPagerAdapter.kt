@@ -8,17 +8,16 @@ import com.softinit.whatsdirect.fragments.StatusFragment
 
 class MainViewPagerAdapter(fm: androidx.fragment.app.FragmentManager): androidx.fragment.app.FragmentPagerAdapter(fm) {
 
+    private val pages: Array<Fragment> = arrayOf(MessageFragment(), StatusFragment())
+
     override fun getItem(position: Int): androidx.fragment.app.Fragment {
         return when(position) {
-            0 -> MessageFragment()
-            1 -> StatusFragment()
+            in 0..pages.size -> pages[position]
             else -> androidx.fragment.app.Fragment()
         }
     }
 
-    override fun getCount(): Int {
-        return 2
-    }
+    override fun getCount(): Int = pages.size
 
     override fun getPageTitle(position: Int): CharSequence? {
         return when(position) {

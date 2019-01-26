@@ -44,7 +44,7 @@ import kotlinx.android.synthetic.main.fragment_message.view.*
 //    }
 //
 //
-//    class CallLogViewHolder: RecyclerView.ViewHolder {
+//    class CallLogViewHolder: RecyclerView.StatusViewHolder {
 //        val ivStartIcon: ImageView
 //        val tvPhoneNum: TextView
 //

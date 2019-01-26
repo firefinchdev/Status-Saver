@@ -1,5 +1,6 @@
 package com.softinit.whatsdirect.activities
 
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.softinit.whatsdirect.R
@@ -16,40 +17,30 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        setSupportActionBar(findViewById(R.id.toolbar))
         setup()
-
-//        val x = DialogSpinner(this, supportFragmentManager).apply {
-//            setAdapter(DialogSpinnerAdapter(this@MainActivity, arrayListOf(
-//                object: SpinnerItem {
-//                    override fun getImageId() = R.drawable.ic_launcher_foreground
-//                    override fun getText() = "ANDROID"
-//                }
-//            )))
-//        }
-
-
-
-//        val x = SearchableDialog.newInstance(arrayListOf(
-//            object: SpinnerItem {
-//                override fun getImageId() = R.drawable.ic_launcher_foreground
-//                override fun getText() = "ANDROID"
-//            }
-//        )).apply fuck@{
-//            this@fuck.show(supportFragmentManager, "fragment_new_dialog")
-//        }
-
     }
 
-    fun setup() {
+    private fun setup() {
         setupViewPager()
     }
 
-    fun setupViewPager() {
+    private fun setupViewPager() {
         mMainViewPagerAdapter = MainViewPagerAdapter(supportFragmentManager)
         mViewPager = findViewById(R.id.mainViewPager)
         mTabLayout = findViewById(R.id.mainTabLayout)
 
         mViewPager.adapter = mMainViewPagerAdapter
         mTabLayout.setupWithViewPager(mViewPager)
+    }
+    //TODO: Dont allow SEND btn if phone number is black
+    //TODO: Remove keyboard on fragment scroll
+    //TODO: Last selected country
+    override fun onBackPressed() {
+        if (mViewPager.currentItem != 0) {
+            mViewPager.setCurrentItem(0, true)
+        } else {
+            super.onBackPressed()
+        }
     }
 }

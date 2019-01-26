@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+        app:cardCornerRadius="4dp"
+        android:layout_margin="@dimen/margin_status_thumbnail"
+        android:orientation="vertical"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <ImageView
+            android:id="@+id/iv_status_video"
+            android:adjustViewBounds="true"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_status_thumbnail"
+            android:scaleType="centerCrop"/>
+
+
+</androidx.cardview.widget.CardView>
