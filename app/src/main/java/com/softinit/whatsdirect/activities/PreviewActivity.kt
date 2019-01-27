@@ -3,6 +3,7 @@ package com.softinit.whatsdirect.activities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.softinit.whatsdirect.R
+import com.softinit.whatsdirect.adapters.PreviewViewPagerAdapter
 import com.softinit.whatsdirect.extended.ImageViewTouchViewPager
 import java.io.File
 
@@ -30,7 +31,6 @@ class PreviewActivity : AppCompatActivity() {
     }
 
     private fun setupMediaViewPager(file: File) {
-
+        previewViewPager.adapter = PreviewViewPagerAdapter(this, file, previewViewPager)
     }
-
 }
