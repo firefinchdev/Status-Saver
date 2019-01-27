@@ -22,30 +22,26 @@ import java.lang.Error
 import java.net.URLConnection
 
 class StatusRecyclerAdapter: Adapter<StatusRecyclerAdapter.StatusViewHolder> {
-    companion object {
-        val WHATSAPP_DIR: File = File(Environment.getExternalStorageDirectory(), "WhatsApp/Media/.Statuses")    //TODO: Fix FC when this directory is not available
-//        val WHATSAPP_DIR: File = File(Environment.getExternalStorageDirectory(), "WhatsApp/Media/.status_copy")
-    }
-
     private var activity: Activity
+    private var fileDirectory: File
     private var fileList: MutableList<File>
     private var fileObserver: FileObserver
 
-    constructor(activity: Activity, fileDirectory: File, addFileAction: (()-> Unit)? = null):super() {
-        if (!fileDirectory.isDirectory) throw Error("Fuck You! I expected a directory.")
+    constructor(activity: Activity, fileDirectory: File): super() {
+        if (!fileDirectory.isDirectory) throw Error("Bro, I expected a directory.")
         this.activity = activity
+        this.fileDirectory = fileDirectory
         this.fileList = fileDirectory.listFiles().filter { isFileImageVideo(it) }.toMutableList()
-        fileObserver = object: FileObserver(fileDirectory.absolutePath, FileObserver.CREATE) {
+        fileObserver = object: FileObserver(fileDirectory.absolutePath, FileObserver.DELETE) {
             override fun onEvent(event: Int, path: String?) {
                 when (event) {
-                    FileObserver.CREATE -> {
+                    FileObserver.DELETE -> {
                         // Path is just the name of the file
                         val f: File = File(fileDirectory, path)
                         if (getFileType(f).let { it == TYPE_IMAGE || it == TYPE_VIDEO }) {
-                            fileList.add(0,f)
+                            fileList.remove(f)
                             activity.runOnUiThread {
-                                notifyItemInserted(0)
-                                addFileAction?.invoke()   //Call addFileAction only if its not null
+                                notifyDataSetChanged()
                             }
                         }
                     }
@@ -79,6 +75,10 @@ class StatusRecyclerAdapter: Adapter<StatusRecyclerAdapter.StatusViewHolder> {
         return getFileType(fileList[position])
     }
 
+    fun refresh() {
+        this.fileList = fileDirectory.listFiles().filter { isFileImageVideo(it) }.toMutableList()
+        notifyDataSetChanged()
+    }
     abstract class StatusViewHolder: RecyclerView.ViewHolder {
         constructor(view: View) : super(view)
         abstract fun bindView(file: File)
