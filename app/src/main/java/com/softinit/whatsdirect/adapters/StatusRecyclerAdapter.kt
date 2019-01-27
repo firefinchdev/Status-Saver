@@ -22,11 +22,6 @@ import java.lang.Error
 import java.net.URLConnection
 
 class StatusRecyclerAdapter: Adapter<StatusRecyclerAdapter.StatusViewHolder> {
-    companion object {
-        val WHATSAPP_DIR: File = File(Environment.getExternalStorageDirectory(), "WhatsApp/Media/.Statuses")    //TODO: Fix FC when this directory is not available
-//        val WHATSAPP_DIR: File = File(Environment.getExternalStorageDirectory(), "WhatsApp/Media/.status_copy")
-    }
-
     private var activity: Activity
     private var fileDirectory: File
     private var fileList: MutableList<File>

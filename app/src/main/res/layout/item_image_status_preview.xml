@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     <it.sephiroth.android.library.imagezoom.ImageViewTouch
-            android:id="@+id/meow"
+            android:id="@+id/image_view_media"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 </LinearLayout>

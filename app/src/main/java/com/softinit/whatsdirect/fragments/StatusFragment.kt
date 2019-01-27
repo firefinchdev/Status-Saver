@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.softinit.whatsdirect.R
 import com.softinit.whatsdirect.adapters.StatusRecyclerAdapter
+import com.softinit.whatsdirect.utils.DIR_WHATSAPP_STATUS
 import com.softinit.whatsdirect.utils.calculateNoOfColumns
 
 class StatusFragment: androidx.fragment.app.Fragment(), SwipeRefreshLayout.OnRefreshListener {
@@ -48,7 +49,7 @@ class StatusFragment: androidx.fragment.app.Fragment(), SwipeRefreshLayout.OnRef
         refreshLayout.setColorSchemeColors(ContextCompat.getColor(context!!, R.color.colorPrimary))
         rvStatus.layoutManager = GridLayoutManager(context, calculateNoOfColumns(context!!, 180) //R.dimen.height_status_thumbnail
                                         .let { if (it > 0) it else 1 })   //Minimum 1
-        rvStatus.adapter = StatusRecyclerAdapter((activity as Activity), StatusRecyclerAdapter.WHATSAPP_DIR)
+        rvStatus.adapter = StatusRecyclerAdapter((activity as Activity), DIR_WHATSAPP_STATUS)
         refreshLayout.setOnRefreshListener(this)
     }
 

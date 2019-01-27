@@ -1,6 +1,8 @@
 package com.softinit.whatsdirect.adapters
 
+import android.app.Activity
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,13 +21,13 @@ class PreviewViewPagerAdapter: PagerAdapter {
 
     private val context: Context
     private val initialFile: File
-    private var mediaDirectory: List<File>
+    private var mediaDirectory: MutableList<File>
     private var isDirectoryInitialized: Boolean = false
     private var viewPager: ViewPager
     constructor(_context: Context, file: File, pager: ViewPager): super() {
         context = _context
         initialFile = file
-        mediaDirectory = listOf(initialFile)
+        mediaDirectory = mutableListOf(initialFile)
         viewPager = pager
 //        mediaDirectory = initialFile.parentFile.listFiles().filter { FileType.isFileImageVideo(it) }
     }
@@ -34,7 +36,7 @@ class PreviewViewPagerAdapter: PagerAdapter {
         val view: View = LayoutInflater.from(context).inflate(R.layout.item_image_status_preview, container, false)
         Glide.with(context)
             .load(mediaDirectory[position])
-            .into(view.findViewById(R.id.meow))
+            .into(view.findViewById(R.id.image_view_media))
         container.addView(view as ViewGroup)
         initializeDirectory()
         return view
@@ -42,14 +44,15 @@ class PreviewViewPagerAdapter: PagerAdapter {
 
     private inline fun initializeDirectory()= GlobalScope.launch {
         if (!isDirectoryInitialized) {
-            var newMediaList: List<File> = listOf()
+            isDirectoryInitialized = true
+            var newMediaList: MutableList<File> = mutableListOf()
             withContext(Dispatchers.Default) {
-                newMediaList = initialFile.parentFile.listFiles().filter { FileType.isFileImageVideo(it) }
-                isDirectoryInitialized = true
+                newMediaList = initialFile.parentFile.listFiles().filter{ FileType.isFileImageVideo(it) }.toMutableList()
             }
             withContext(Dispatchers.Main) {
-                mediaDirectory = newMediaList
-                notifyDataSetChanged()
+                mediaDirectory.clear()
+                mediaDirectory.addAll(newMediaList)
+                (context as Activity).runOnUiThread { notifyDataSetChanged() }
                 val currentItem = {
                     var idx = 0
                     mediaDirectory.forEachIndexed {i,ele ->
@@ -62,9 +65,17 @@ class PreviewViewPagerAdapter: PagerAdapter {
         }
     }
 
+
+    //This is to resolve the bug where 1st item is rendered same as 2nd item
+    //Happens when touching 2nd item followed by left swipe.
+    //This method will help destroy all the views on call to notifyDataSetChanged()
+    override fun getItemPosition(`object`: Any): Int = POSITION_NONE
+
     override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
         container.removeView(`object` as View)
     }
+
+    fun getCurrentMediaFile() = mediaDirectory[viewPager.currentItem]
 
     override fun getCount(): Int = mediaDirectory.size
     override fun isViewFromObject(view: View, `object`: Any): Boolean = (view == `object`)
