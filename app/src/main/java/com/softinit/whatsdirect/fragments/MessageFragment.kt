@@ -61,7 +61,7 @@ class MessageFragment: androidx.fragment.app.Fragment(), View.OnClickListener, O
         cbPreferBusiness = view.findViewById(R.id.cb_prefer_business)
         rvCallLog = view.findViewById(R.id.rv_call_log)
         coordinatorLayout = view.findViewById(R.id.coordinator_fragment_message)
-        nestedScrollView = view.findViewById(R.id.nested_scroll_view)
+//        nestedScrollView = view.findViewById(R.id.nested_scroll_view)
         appbar = view.findViewById(R.id.appbar)
     }
 
@@ -106,7 +106,9 @@ class MessageFragment: androidx.fragment.app.Fragment(), View.OnClickListener, O
     override fun onCallLogSelect(phoneNumber: Phonenumber.PhoneNumber) {
         spinnerCountry.setCountryForPhoneCode(phoneNumber.countryCode)
         etWhatsAppNum.setText(phoneNumber.nationalNumber.toString())
-        Toast.makeText(context, "Number Selected, Please Scroll Up", Toast.LENGTH_LONG).show()
+        appbar.setExpanded(true, true)
+        rvCallLog?.smoothScrollToPosition(0)
+//        Toast.makeText(context, "Number Selected, Please Scroll Up", Toast.LENGTH_LONG).show()
 //        etWhatsAppNum.moveCursorToVisibleOffset()
 //        nestedScrollView.parent.requestChildFocus(nestedScrollView, nestedScrollView)
 //        nestedScrollView.fullScroll(View.FOCUS_UP)
