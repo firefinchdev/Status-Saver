@@ -19,5 +19,7 @@ object FileType {
     }
 
     fun isFileImageVideo(file: File): Boolean = getFileType(file).let { it == TYPE_IMAGE || it == TYPE_VIDEO }
+    fun isFileImage(file: File): Boolean = getFileType(file).let { it == TYPE_IMAGE }
+    fun isFileVideo(file: File): Boolean = getFileType(file).let { it == TYPE_VIDEO }
 }
 
