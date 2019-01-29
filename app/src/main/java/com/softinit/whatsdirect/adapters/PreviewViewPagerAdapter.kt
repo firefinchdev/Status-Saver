@@ -2,10 +2,12 @@ package com.softinit.whatsdirect.adapters
 
 import android.app.Activity
 import android.content.Context
-import android.util.Log
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.core.content.FileProvider
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.bumptech.glide.Glide
@@ -37,9 +39,26 @@ class PreviewViewPagerAdapter: PagerAdapter {
         Glide.with(context)
             .load(mediaDirectory[position])
             .into(view.findViewById(R.id.image_view_media))
+        setupPlay(view, position)
         container.addView(view as ViewGroup)
         initializeDirectory()
         return view
+    }
+
+    private fun setupPlay(view: View, position: Int) {
+        val file = mediaDirectory[position]
+        val ivPlayVideo: ImageView = view.findViewById(R.id.iv_play_video)
+        if (FileType.isFileVideo(mediaDirectory[position])) {
+            ivPlayVideo.setOnClickListener {
+                val uri = FileProvider.getUriForFile(context, "com.softinit.whatsdirect", file)
+                context.startActivity(Intent(Intent.ACTION_VIEW, uri).apply {
+                    setDataAndType(uri, "video/mp4")
+                    flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+                })
+            }
+        } else {
+            ivPlayVideo.visibility = View.GONE
+        }
     }
 
     private inline fun initializeDirectory()= GlobalScope.launch {
@@ -56,7 +75,7 @@ class PreviewViewPagerAdapter: PagerAdapter {
                 val currentItem = {
                     var idx = 0
                     mediaDirectory.forEachIndexed {i,ele ->
-                        if(ele.name == initialFile.name)idx=i
+                        if(ele.name == initialFile.name)idx = i
                     }
                     idx
                 }()

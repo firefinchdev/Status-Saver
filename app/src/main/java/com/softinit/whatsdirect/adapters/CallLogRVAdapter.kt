@@ -18,8 +18,6 @@ import io.michaelrocks.libphonenumber.android.Phonenumber
 import java.text.SimpleDateFormat
 import java.util.*
 
-private const val LIMIT = 30
-
 class CallLogRVAdapter : CursorRecyclerViewAdapter<CallLogRVAdapter.CallLogViewHolder> {
     companion object {
         const val layoutResId: Int = R.layout.list_item_call_log
@@ -39,11 +37,6 @@ class CallLogRVAdapter : CursorRecyclerViewAdapter<CallLogRVAdapter.CallLogViewH
 
     override fun onBindViewHolder(viewHolder: CallLogViewHolder?, cursor: Cursor?) {
         viewHolder?.bindViewWithCursor(cursor!!)
-    }
-
-    override fun getItemCount(): Int {
-        val count = super.getItemCount()
-        return if (count < LIMIT) count else LIMIT
     }
 
     fun setOnCallLogSelectedListener(listener: OnCallLogSelectedListener) {
