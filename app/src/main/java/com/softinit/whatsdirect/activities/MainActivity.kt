@@ -52,7 +52,12 @@ class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener {
     }
 
     override fun onPageSelected(position: Int) {
-        appBarLayout.setExpanded(true, true)
+        when(position) {
+            MainViewPagerAdapter.POS_MESSAGE -> appBarLayout.setExpanded(true, true)
+            MainViewPagerAdapter.POS_SAVED_STATUS -> (mViewPager.adapter as MainViewPagerAdapter)
+                .refreshSavedStatus()
+        }
+
     }
     override fun onPageScrollStateChanged(state: Int) {}
 
