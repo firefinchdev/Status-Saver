@@ -2,6 +2,7 @@ package com.softinit.whatsdirect.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.appbar.AppBarLayout
 import com.softinit.whatsdirect.R

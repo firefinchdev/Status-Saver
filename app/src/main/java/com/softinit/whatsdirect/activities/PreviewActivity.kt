@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
+import com.softinit.whatsdirect.GlideApp
 import com.softinit.whatsdirect.R
 import com.softinit.whatsdirect.adapters.PreviewViewPagerAdapter
 import com.softinit.whatsdirect.extended.ImageViewTouchViewPager
@@ -82,6 +83,11 @@ class PreviewActivity : AppCompatActivity(), View.OnClickListener {
                     getRenameStatusDialog(this@PreviewActivity, file).show()
                 }
             }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        GlideApp.get(this).clearMemory();
+    }
 
     private fun getSaveFailSnackBar() =
         Snackbar.make(coordinatorLayout, "Failed to Save Status", Snackbar.LENGTH_LONG)

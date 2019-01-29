@@ -5,7 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.softinit.whatsdirect.GlideApp
 import com.softinit.whatsdirect.R
 import com.softinit.whatsdirect.adapters.StatusRecyclerAdapter
 import com.softinit.whatsdirect.utils.FileType
@@ -29,8 +30,9 @@ class ImageViewHolder: StatusRecyclerAdapter.StatusViewHolder {
         ivStatus = view.findViewById(R.id.iv_status_image)
     }
     override fun bindView(file: File) {
-        Glide.with(context)
+        GlideApp.with(context)
             .load(file)
+            .diskCacheStrategy(DiskCacheStrategy.NONE)
             .into(ivStatus)
     }
 

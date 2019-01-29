@@ -49,7 +49,7 @@ class StatusFragment: androidx.fragment.app.Fragment(), SwipeRefreshLayout.OnRef
         refreshLayout.setColorSchemeColors(ContextCompat.getColor(context!!, R.color.colorPrimary))
         rvStatus.layoutManager = GridLayoutManager(context, calculateNoOfColumns(context!!, 180) //R.dimen.height_status_thumbnail
                                         .let { if (it > 0) it else 1 })   //Minimum 1
-        rvStatus.adapter = StatusRecyclerAdapter((activity as Activity), DIR_WHATSAPP_STATUS)
+        rvStatus.adapter = StatusRecyclerAdapter((activity as Activity), DIR_WHATSAPP_STATUS, true)
         refreshLayout.setOnRefreshListener(this)
     }
 

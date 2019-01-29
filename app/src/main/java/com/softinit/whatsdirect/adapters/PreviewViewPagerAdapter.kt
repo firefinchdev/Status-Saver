@@ -10,7 +10,8 @@ import android.widget.ImageView
 import androidx.core.content.FileProvider
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
-import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.softinit.whatsdirect.GlideApp
 import com.softinit.whatsdirect.R
 import com.softinit.whatsdirect.utils.FileType
 import kotlinx.coroutines.Dispatchers
@@ -36,8 +37,9 @@ class PreviewViewPagerAdapter: PagerAdapter {
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val view: View = LayoutInflater.from(context).inflate(R.layout.item_image_status_preview, container, false)
-        Glide.with(context)
+        GlideApp.with(context)
             .load(mediaDirectory[position])
+            .diskCacheStrategy(DiskCacheStrategy.NONE)
             .into(view.findViewById(R.id.image_view_media))
         setupPlay(view, position)
         container.addView(view as ViewGroup)
