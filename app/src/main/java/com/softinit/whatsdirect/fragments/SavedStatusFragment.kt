@@ -50,7 +50,10 @@ class SavedStatusFragment: androidx.fragment.app.Fragment(), SwipeRefreshLayout.
         refreshLayout.setColorSchemeColors(ContextCompat.getColor(context!!, R.color.colorPrimary))
         rvStatus.layoutManager = GridLayoutManager(context, calculateNoOfColumns(context!!, 180) //R.dimen.height_status_thumbnail
             .let { if (it > 0) it else 1 })   //Minimum 1
-        rvStatus.adapter = StatusRecyclerAdapter((activity as Activity), DIR_SAVED_STATUS)
+        rvStatus.adapter = StatusRecyclerAdapter((activity as Activity), DIR_SAVED_STATUS, StatusRecyclerAdapter.options().apply {
+            allowShare = true
+            allowDelete = true
+        })
         refreshLayout.setOnRefreshListener(this)
     }
 

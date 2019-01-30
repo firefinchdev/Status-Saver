@@ -2,6 +2,7 @@ package com.softinit.whatsdirect.fragments
 
 import android.app.Activity
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -49,7 +50,10 @@ class StatusFragment: androidx.fragment.app.Fragment(), SwipeRefreshLayout.OnRef
         refreshLayout.setColorSchemeColors(ContextCompat.getColor(context!!, R.color.colorPrimary))
         rvStatus.layoutManager = GridLayoutManager(context, calculateNoOfColumns(context!!, 180) //R.dimen.height_status_thumbnail
                                         .let { if (it > 0) it else 1 })   //Minimum 1
-        rvStatus.adapter = StatusRecyclerAdapter((activity as Activity), DIR_WHATSAPP_STATUS, true)
+        rvStatus.adapter = StatusRecyclerAdapter((activity as Activity), DIR_WHATSAPP_STATUS, StatusRecyclerAdapter.options().apply {
+            allowSave = true
+            allowShare = true
+        })
         refreshLayout.setOnRefreshListener(this)
     }
 

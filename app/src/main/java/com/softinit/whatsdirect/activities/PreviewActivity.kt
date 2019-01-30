@@ -22,13 +22,19 @@ class PreviewActivity : AppCompatActivity(), View.OnClickListener {
     companion object {
         const val INTENT_EXTRA_FILE_ABSOLUTE_PATH = "INTENT_EXTRA_FILE_ABSOLUTE_PATH"
         const val ALLOW_SAVE = "ALLOW_SAVE"
+        const val ALLOW_SHARE = "ALLOW_SHARE"
+        const val ALLOW_DELETE = "ALLOW_DELETE"
     }
 
     private lateinit var previewViewPager: ImageViewTouchViewPager
     private lateinit var mediaFile: File
     private lateinit var fabSave: FloatingActionButton
+    private lateinit var fabShare: FloatingActionButton
+    private lateinit var fabDelete: FloatingActionButton
     private lateinit var coordinatorLayout: CoordinatorLayout
     private var allowSave: Boolean = false
+    private var allowShare: Boolean = false
+    private var allowDelete: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,21 +44,37 @@ class PreviewActivity : AppCompatActivity(), View.OnClickListener {
         intent.extras?.apply {
             mediaFile = File(getString(INTENT_EXTRA_FILE_ABSOLUTE_PATH))
             allowSave = getBoolean(ALLOW_SAVE, false)
+            allowShare = getBoolean(ALLOW_SHARE, false)
+            allowDelete = getBoolean(ALLOW_DELETE, false)
         }
 
         setup()
+        setupVisibilities()
+    }
+
+    private fun setupVisibilities() {
+        if (!allowSave) {
+            fabSave.visibility = View.GONE
+        }
+        if (!allowShare) {
+            fabShare.visibility = View.GONE
+        }
+        if (!allowDelete) {
+            fabDelete.visibility = View.GONE
+        }
     }
 
     private fun setupIds() {
         previewViewPager = findViewById(R.id.view_pager_media)
         fabSave = findViewById(R.id.fab_save)
+        fabShare = findViewById(R.id.fab_share)
+        fabDelete = findViewById(R.id.fab_delete)
         coordinatorLayout = findViewById(R.id.preview_coordinator_layout)
     }
 
     private fun setup() {
-        fabSave.setOnClickListener(this)
-        if (!allowSave) {
-            fabSave.visibility = View.GONE
+        listOf(fabSave, fabShare, fabDelete).forEach {
+            it.setOnClickListener(this)
         }
         setupMediaViewPager(mediaFile)
     }
@@ -66,12 +88,18 @@ class PreviewActivity : AppCompatActivity(), View.OnClickListener {
             R.id.fab_save -> {
                 val srcFile = (previewViewPager.adapter as PreviewViewPagerAdapter).getCurrentMediaFile()
                 try {
-                    FileUtils.copyFileToDirectory(srcFile, DIR_SAVED_STATUS)
+                    FileUtils.copyFileToDirectory(srcFile, DIR_SAVED_STATUS, false)
                     getSaveSuccessSnackBar(File(DIR_SAVED_STATUS, srcFile.name)).show()
 
                 } catch (e: IOException) {
                     getSaveFailSnackBar().show()
                 }
+            }
+            R.id.fab_share -> {
+                //TODO
+            }
+            R.id.fab_delete -> {
+                //TODO
             }
         }
     }

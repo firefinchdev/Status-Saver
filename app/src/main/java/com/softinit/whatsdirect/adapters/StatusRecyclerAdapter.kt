@@ -26,13 +26,13 @@ class StatusRecyclerAdapter: Adapter<StatusRecyclerAdapter.StatusViewHolder> {
     private var fileDirectory: File
     private var fileList: MutableList<File>
     private var fileObserver: FileObserver
-    private var allowSave: Boolean
+    private var mOptions: AdapterOptions
 
-    constructor(activity: Activity, fileDirectory: File, allowSave: Boolean = false): super() {
+    constructor(activity: Activity, fileDirectory: File, _options: AdapterOptions): super() {
         if (!fileDirectory.isDirectory) throw Error("Bro, I expected a directory.")
         this.activity = activity
         this.fileDirectory = fileDirectory
-        this.allowSave = allowSave
+        this.mOptions = _options
         this.fileList = fileDirectory.listFiles().filter { isFileImageVideo(it) }.toMutableList()
         fileObserver = object: FileObserver(fileDirectory.absolutePath, FileObserver.DELETE) {
             override fun onEvent(event: Int, path: String?) {
@@ -67,7 +67,9 @@ class StatusRecyclerAdapter: Adapter<StatusRecyclerAdapter.StatusViewHolder> {
         holder.setOnClickListener(View.OnClickListener {
             val i: Intent = Intent(activity, PreviewActivity::class.java)
             i.putExtra(PreviewActivity.INTENT_EXTRA_FILE_ABSOLUTE_PATH, file.absolutePath)
-            i.putExtra(PreviewActivity.ALLOW_SAVE, allowSave)
+            i.putExtra(PreviewActivity.ALLOW_SAVE, mOptions.allowSave)
+            i.putExtra(PreviewActivity.ALLOW_DELETE, mOptions.allowDelete)
+            i.putExtra(PreviewActivity.ALLOW_SHARE, mOptions.allowShare)
             activity.startActivity(i)
         })
     }
@@ -87,6 +89,23 @@ class StatusRecyclerAdapter: Adapter<StatusRecyclerAdapter.StatusViewHolder> {
         abstract fun bindView(file: File)
         abstract fun statusType(): Int
         abstract fun setOnClickListener(listener: View.OnClickListener)
+    }
+
+    companion object {
+        @JvmStatic
+        // Note that this has to be a function, because if its a variable, its value will be changed
+        // everytime someone calls to it
+        fun options() = object: AdapterOptions {
+            override var allowSave: Boolean = false
+            override var allowShare: Boolean = false
+            override var allowDelete: Boolean = false
+        }
+    }
+
+    interface AdapterOptions {
+        var allowSave: Boolean
+        var allowShare: Boolean
+        var allowDelete: Boolean
     }
 }
 
