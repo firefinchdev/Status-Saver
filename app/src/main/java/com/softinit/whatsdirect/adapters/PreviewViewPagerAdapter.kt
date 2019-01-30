@@ -11,6 +11,7 @@ import androidx.core.content.FileProvider
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.softinit.whatsdirect.BuildConfig
 import com.softinit.whatsdirect.GlideApp
 import com.softinit.whatsdirect.R
 import com.softinit.whatsdirect.utils.FileType
@@ -52,7 +53,7 @@ class PreviewViewPagerAdapter: PagerAdapter {
         val ivPlayVideo: ImageView = view.findViewById(R.id.iv_play_video)
         if (FileType.isFileVideo(mediaDirectory[position])) {
             ivPlayVideo.setOnClickListener {
-                val uri = FileProvider.getUriForFile(context, "com.softinit.whatsdirect", file)
+                val uri = FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID, file)
                 context.startActivity(Intent(Intent.ACTION_VIEW, uri).apply {
                     setDataAndType(uri, "video/mp4")
                     flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
@@ -64,8 +65,18 @@ class PreviewViewPagerAdapter: PagerAdapter {
     }
 
     private inline fun initializeDirectory()= GlobalScope.launch {
-        if (!isDirectoryInitialized) {
-            isDirectoryInitialized = true
+        // This "init" and synchronized is so to ensure
+        // multiple threads don't initiate more than once
+        // (or so that main thread does not initialize
+        // directory twice after dispatching new thread.
+        var init = true
+        synchronized("LOCK") {
+            init = isDirectoryInitialized
+            if (!init) {
+                isDirectoryInitialized = true
+            }
+        }
+        if (!init) {
             var newMediaList: MutableList<File> = mutableListOf()
             withContext(Dispatchers.Default) {
                 newMediaList = initialFile.parentFile.listFiles().filter{ FileType.isFileImageVideo(it) }.toMutableList()
@@ -85,7 +96,6 @@ class PreviewViewPagerAdapter: PagerAdapter {
             }
         }
     }
-
 
     //This is to resolve the bug where 1st item is rendered same as 2nd item
     //Happens when touching 2nd item followed by left swipe.
