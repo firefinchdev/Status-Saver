@@ -8,8 +8,20 @@ import com.google.android.material.appbar.AppBarLayout
 import com.softinit.whatsdirect.R
 import com.softinit.whatsdirect.adapters.MainViewPagerAdapter
 import com.google.android.material.tabs.TabLayout
+import android.Manifest
+import android.content.Intent
+import android.content.pm.PackageManager
+import androidx.core.app.ActivityCompat
+import com.softinit.whatsdirect.utils.hasPermissions
 
 class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener {
+
+    companion object {
+        const val KEY_REQUEST_PERMISSION = 1
+        const val KEY_REQUEST_CALL_LOG_PERMISSION = 2
+        const val KEY_REQUEST_WRITE_EXTERNAL_PERMISSION = 3
+        private var askedForPermissionsOnce = false
+    }
     private lateinit var mMainViewPagerAdapter: MainViewPagerAdapter
 
     private lateinit var mViewPager: androidx.viewpager.widget.ViewPager
@@ -21,7 +33,14 @@ class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener {
         setContentView(R.layout.activity_main)
         setSupportActionBar(findViewById(R.id.toolbar))
         setupIds()
+
+        val PERMISSIONS = arrayOf(Manifest.permission.READ_CALL_LOG, Manifest.permission.WRITE_EXTERNAL_STORAGE)
         setup()
+        if (!askedForPermissionsOnce && !hasPermissions(this, PERMISSIONS)) {
+            askedForPermissionsOnce = true
+            ActivityCompat.requestPermissions(this, PERMISSIONS, KEY_REQUEST_PERMISSION)
+        }
+
     }
     private fun setupIds() {
         mViewPager = findViewById(R.id.mainViewPager)
@@ -63,4 +82,35 @@ class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener {
     override fun onPageScrollStateChanged(state: Int) {}
 
     override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
+
+    private fun restart() {
+        startActivity(Intent(this, MainActivity::class.java))
+        overridePendingTransition(0, 0)
+        finish()
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when(requestCode) {
+            KEY_REQUEST_PERMISSION -> {
+                if (grantResults.isNotEmpty() &&
+                    (grantResults[0] == PackageManager.PERMISSION_GRANTED ||
+                            grantResults[1] == PackageManager.PERMISSION_GRANTED)) {
+                    restart()
+                }
+            }
+            KEY_REQUEST_CALL_LOG_PERMISSION -> {
+                if (grantResults.isNotEmpty() &&
+                    (grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                    restart()
+                }
+            }
+            KEY_REQUEST_WRITE_EXTERNAL_PERMISSION -> {
+                if (grantResults.isNotEmpty() &&
+                    (grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                    restart()
+                }
+            }
+        }
+    }
 }

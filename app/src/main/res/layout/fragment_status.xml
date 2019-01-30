@@ -8,10 +8,36 @@
             android:scaleType="centerCrop"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                  android:orientation="vertical"
-                  android:layout_width="match_parent"
-                  android:layout_height="match_parent">
+        <androidx.cardview.widget.CardView
+                android:id="@+id/layout_error_permission"
+                android:background="?android:attr/selectableItemBackground"
+                android:elevation="100dp"
+                android:layout_marginTop="40dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            <LinearLayout
+                    android:id="@+id/ll_permission_error"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:paddingEnd="10dp"
+                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                <ImageView
+                        android:layout_margin="10dp"
+                        android:src="@drawable/error"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"/>
+                <TextView
+                        android:text="Please grant required permissions to access Whatsapp statuses."
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
                 android:id="@+id/swipe_refresh_status"
                 android:layout_width="match_parent"

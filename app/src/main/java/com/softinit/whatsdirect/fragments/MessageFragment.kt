@@ -1,5 +1,7 @@
 package com.softinit.whatsdirect.fragments
 
+import android.Manifest
+import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -10,15 +12,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.core.app.ActivityCompat
 import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.appbar.AppBarLayout
 import com.hbb20.CountryCodePicker
 import com.softinit.whatsdirect.R
+import com.softinit.whatsdirect.activities.MainActivity
 import com.softinit.whatsdirect.adapters.CallLogRVAdapter
 import com.softinit.whatsdirect.interfaces.OnCallLogSelectedListener
 import com.softinit.whatsdirect.utils.getWhatsAppPackage
+import com.softinit.whatsdirect.utils.hasPermissions
 import com.softinit.whatsdirect.utils.setAdapterWithViewHeight
 import io.michaelrocks.libphonenumber.android.Phonenumber
 import java.net.URLEncoder
@@ -34,6 +39,7 @@ class MessageFragment: androidx.fragment.app.Fragment(), View.OnClickListener, O
     private lateinit var coordinatorLayout: CoordinatorLayout
     private lateinit var nestedScrollView: NestedScrollView
     private lateinit var appbar: AppBarLayout
+    private lateinit var llPermissionError: LinearLayout
 
     private val listItemCallLogHeight = R.dimen.height_item_call_item  //Change when updating list_item_call_log.xml
 
@@ -63,20 +69,34 @@ class MessageFragment: androidx.fragment.app.Fragment(), View.OnClickListener, O
         coordinatorLayout = view.findViewById(R.id.coordinator_fragment_message)
 //        nestedScrollView = view.findViewById(R.id.nested_scroll_view)
         appbar = view.findViewById(R.id.appbar)
+        llPermissionError = view.findViewById(R.id.ll_permission_error)
     }
 
     private fun initiate(view: View) {
         btnSend.setOnClickListener(this)
-        rvCallLog?.layoutManager = LinearLayoutManager(context)
-        rvCallLog?.setAdapterWithViewHeight(CallLogRVAdapter(context!!, this),
-            activity?.resources?.getDimension(listItemCallLogHeight)?.toInt()
-        )
-//        rvCallLog?.adapter = CallLogRVAdapter(context!!, this)
+        llPermissionError.setOnClickListener(this)
+
+        if (hasPermissions(context, arrayOf(Manifest.permission.READ_CALL_LOG))) {
+            llPermissionError.visibility = View.GONE
+            rvCallLog?.layoutManager = LinearLayoutManager(context)
+            rvCallLog?.setAdapterWithViewHeight(CallLogRVAdapter(context!!, this),
+                activity?.resources?.getDimension(listItemCallLogHeight)?.toInt()
+            )
+//            rvCallLog?.adapter = CallLogRVAdapter(context!!, this)
+        } else {
+//            ActivityCompat.requestPermissions((activity as Activity), arrayOf(Manifest.permission.READ_CALL_LOG), MainActivity.KEY_REQUEST_PERMISSION)
+        }
+
     }
 
     override fun onClick(v: View?) {
         when(v?.id) {
             R.id.btn_send -> sendIntent(cbPreferBusiness.isChecked)
+            R.id.ll_permission_error -> {
+                if (!hasPermissions(context, arrayOf(Manifest.permission.READ_CALL_LOG))) {
+                    ActivityCompat.requestPermissions((activity as Activity), arrayOf(Manifest.permission.READ_CALL_LOG), MainActivity.KEY_REQUEST_CALL_LOG_PERMISSION)
+                }
+            }
             else -> return
         }
     }
