@@ -1,18 +1,23 @@
 package com.softinit.whatsdirect.activities
 
+import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.core.content.FileProvider
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
+import com.softinit.whatsdirect.BuildConfig
 import com.softinit.whatsdirect.GlideApp
 import com.softinit.whatsdirect.R
 import com.softinit.whatsdirect.adapters.PreviewViewPagerAdapter
 import com.softinit.whatsdirect.extended.ImageViewTouchViewPager
 import com.softinit.whatsdirect.utils.DIR_SAVED_STATUS
+import com.softinit.whatsdirect.utils.FileType
 import com.softinit.whatsdirect.utils.getRenameStatusDialog
 import org.apache.commons.io.FileUtils
 import java.io.File
@@ -84,9 +89,9 @@ class PreviewActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onClick(v: View?) {
+        val srcFile = (previewViewPager.adapter as PreviewViewPagerAdapter).getCurrentMediaFile()
         when(v?.id) {
             R.id.fab_save -> {
-                val srcFile = (previewViewPager.adapter as PreviewViewPagerAdapter).getCurrentMediaFile()
                 try {
                     FileUtils.copyFileToDirectory(srcFile, DIR_SAVED_STATUS, false)
                     getSaveSuccessSnackBar(File(DIR_SAVED_STATUS, srcFile.name)).show()
@@ -96,7 +101,16 @@ class PreviewActivity : AppCompatActivity(), View.OnClickListener {
                 }
             }
             R.id.fab_share -> {
-                //TODO
+                val uri = FileProvider.getUriForFile(this, BuildConfig.APPLICATION_ID, srcFile)
+                val i = Intent(Intent.ACTION_SEND).apply {
+                    flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+                    when (FileType.getFileType(srcFile)){
+                        FileType.TYPE_IMAGE -> setType("image/*")
+                        FileType.TYPE_VIDEO -> setType("video/*")
+                    }
+                    putExtra(Intent.EXTRA_STREAM, uri)
+                }
+                startActivity(Intent.createChooser(i, "Share with"))
             }
             R.id.fab_delete -> {
                 //TODO

@@ -13,15 +13,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
-
     <LinearLayout
-            android:padding="@dimen/margin_fab"
-            android:paddingEnd="0dp"
-            android:paddingStart="0dp"
+            android:layout_marginBottom="@dimen/margin_fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_anchorGravity="right|bottom"
-            app:layout_anchor="@+id/view_pager_media">
+            app:layout_anchor="@id/view_pager_media"
+            app:layout_dodgeInsetEdges="bottom">
         <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:layout_marginEnd="@dimen/margin_fab"
                 android:id="@+id/fab_delete"
