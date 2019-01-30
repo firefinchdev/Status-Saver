@@ -113,7 +113,11 @@ class PreviewActivity : AppCompatActivity(), View.OnClickListener {
                 startActivity(Intent.createChooser(i, "Share with"))
             }
             R.id.fab_delete -> {
-                //TODO
+                if (!srcFile.isDirectory) {
+                    srcFile.delete()
+                    Toast.makeText(this, "Deleted", Toast.LENGTH_SHORT).show()
+                    finish()
+                }
             }
         }
     }
