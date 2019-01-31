@@ -18,10 +18,13 @@ import com.softinit.whatsdirect.utils.DIR_WHATSAPP_STATUS
 import com.softinit.whatsdirect.utils.calculateNoOfColumns
 import com.softinit.whatsdirect.utils.hasPermissions
 
-class StatusFragment: androidx.fragment.app.Fragment(), SwipeRefreshLayout.OnRefreshListener, View.OnClickListener {
+class StatusFragment: androidx.fragment.app.Fragment(),
+                SwipeRefreshLayout.OnRefreshListener, View.OnClickListener,
+                StatusRecyclerAdapter.OnStatusAdapterActions{
     private lateinit var rvStatus: RecyclerView
     private lateinit var refreshLayout: SwipeRefreshLayout
     private lateinit var layoutPermissionError: View
+    private lateinit var layoutNoStatus: View
 
     companion object {
         fun newInstance(): StatusFragment {
@@ -42,7 +45,6 @@ class StatusFragment: androidx.fragment.app.Fragment(), SwipeRefreshLayout.OnRef
 
     override fun onResume() {
         super.onResume()
-
         if(rvStatus.adapter != null) {
             (rvStatus.adapter as StatusRecyclerAdapter).refresh()
         }
@@ -52,22 +54,19 @@ class StatusFragment: androidx.fragment.app.Fragment(), SwipeRefreshLayout.OnRef
         rvStatus = view.findViewById(R.id.rv_statuses)
         refreshLayout = view.findViewById(R.id.swipe_refresh_status)
         layoutPermissionError = view.findViewById(R.id.layout_error_permission)
+        layoutNoStatus = view.findViewById(R.id.layout_no_status)
     }
 
     private fun initiate(view: View) {
         layoutPermissionError.setOnClickListener(this)
         refreshLayout.setColorSchemeColors(ContextCompat.getColor(context!!, R.color.colorPrimary))
-
-        if (hasPermissions(context, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE))) {
-            layoutPermissionError.visibility = View.GONE
-            rvStatus.layoutManager = GridLayoutManager(context, calculateNoOfColumns(context!!, 180) //R.dimen.height_status_thumbnail
-                .let { if (it > 0) it else 1 })   //Minimum 1
-            rvStatus.adapter = StatusRecyclerAdapter((activity as Activity), DIR_WHATSAPP_STATUS, StatusRecyclerAdapter.options().apply {
-                allowSave = true
-                allowShare = true
-            })
-            refreshLayout.setOnRefreshListener(this)
-        }
+        rvStatus.layoutManager = GridLayoutManager(context, calculateNoOfColumns(context!!, 180) //R.dimen.height_status_thumbnail
+            .let { if (it > 0) it else 1 })   //Minimum 1
+        rvStatus.adapter = StatusRecyclerAdapter((activity as Activity), DIR_WHATSAPP_STATUS, this, StatusRecyclerAdapter.options().apply {
+            allowSave = true
+            allowShare = true
+        })
+        refreshLayout.setOnRefreshListener(this)
     }
 
     override fun onRefresh() {
@@ -82,10 +81,22 @@ class StatusFragment: androidx.fragment.app.Fragment(), SwipeRefreshLayout.OnRef
             R.id.layout_error_permission -> {
                 if (!hasPermissions(context, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE))) {
                     ActivityCompat.requestPermissions((activity as Activity), arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), MainActivity.KEY_REQUEST_WRITE_EXTERNAL_PERMISSION)
-                } else {
-
                 }
             }
         }
+    }
+
+    override fun adapterHasPermissions() {
+        layoutPermissionError.visibility = View.GONE
+        layoutNoStatus.visibility = View.GONE
+    }
+
+    override fun adapterNotHasPermissions() {
+        layoutPermissionError.visibility = View.VISIBLE
+        layoutNoStatus.visibility = View.GONE
+    }
+
+    override fun adapterEmptyStatusDirectory() {
+        layoutNoStatus.visibility = View.VISIBLE
     }
 }
