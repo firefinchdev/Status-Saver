@@ -79,8 +79,8 @@ class StatusFragment: androidx.fragment.app.Fragment(),
     override fun onClick(v: View?) {
         when(v?.id) {
             R.id.layout_error_permission -> {
-                if (!hasPermissions(context, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE))) {
-                    ActivityCompat.requestPermissions((activity as Activity), arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), MainActivity.KEY_REQUEST_WRITE_EXTERNAL_PERMISSION)
+                if (!hasPermissions(context, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE))) {
+                    ActivityCompat.requestPermissions((activity as Activity), arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), MainActivity.KEY_REQUEST_WRITE_EXTERNAL_PERMISSION)
                 }
             }
         }
