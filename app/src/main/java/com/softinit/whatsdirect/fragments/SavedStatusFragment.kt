@@ -21,6 +21,8 @@ import com.softinit.whatsdirect.utils.hasPermissions
 class SavedStatusFragment: androidx.fragment.app.Fragment(),
                     SwipeRefreshLayout.OnRefreshListener, View.OnClickListener,
                     StatusRecyclerAdapter.OnStatusAdapterActions {
+
+    private var onCreateViewCalled: Boolean = false
     private lateinit var rvStatus: RecyclerView
     private lateinit var refreshLayout: SwipeRefreshLayout
     private lateinit var layoutPermissionError: View
@@ -40,6 +42,7 @@ class SavedStatusFragment: androidx.fragment.app.Fragment(),
         val view: View =  inflater.inflate(R.layout.fragment_status, container, false)
         setViewIds(view)
         initiate(view)
+        onCreateViewCalled = true
         return view
     }
 
@@ -72,6 +75,9 @@ class SavedStatusFragment: androidx.fragment.app.Fragment(),
     fun refresh() = onRefresh()
 
     override fun onRefresh() {
+        if (!onCreateViewCalled) {
+            return
+        }
         if(rvStatus.adapter != null) {
             (rvStatus.adapter as StatusRecyclerAdapter).refresh()
         }
