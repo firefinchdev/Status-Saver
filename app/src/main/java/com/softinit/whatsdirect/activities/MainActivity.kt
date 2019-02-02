@@ -9,8 +9,10 @@ import com.softinit.whatsdirect.R
 import com.softinit.whatsdirect.adapters.MainViewPagerAdapter
 import com.google.android.material.tabs.TabLayout
 import android.Manifest
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.view.inputmethod.InputMethodManager
 import androidx.core.app.ActivityCompat
 import com.softinit.whatsdirect.utils.hasPermissions
 
@@ -77,6 +79,10 @@ class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener {
             MainViewPagerAdapter.POS_SAVED_STATUS -> (mViewPager.adapter as MainViewPagerAdapter)
                 .refreshSavedStatus()
         }
+
+        // Hide Soft Keyboard on Page Change
+        (getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager)
+            .hideSoftInputFromWindow(mViewPager.windowToken, 0)
 
     }
     override fun onPageScrollStateChanged(state: Int) {}

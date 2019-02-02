@@ -44,6 +44,7 @@ class MessageFragment: androidx.fragment.app.Fragment(), View.OnClickListener, O
     private val listItemCallLogHeight = R.dimen.height_item_call_item  //Change when updating list_item_call_log.xml
 
     companion object {
+        const val CALL_LOG_SMOOTH_SCROLL_LIMIT = 30
         fun newInstance(): MessageFragment {
             return MessageFragment()
         }
@@ -123,18 +124,14 @@ class MessageFragment: androidx.fragment.app.Fragment(), View.OnClickListener, O
 
     }
 
-    override fun onCallLogSelect(phoneNumber: Phonenumber.PhoneNumber) {
+    override fun onCallLogSelect(phoneNumber: Phonenumber.PhoneNumber, postition: Int) {
         spinnerCountry.setCountryForPhoneCode(phoneNumber.countryCode)
         etWhatsAppNum.setText(phoneNumber.nationalNumber.toString())
         appbar.setExpanded(true, true)
+        if (postition > CALL_LOG_SMOOTH_SCROLL_LIMIT) {
+            rvCallLog?.scrollToPosition(CALL_LOG_SMOOTH_SCROLL_LIMIT)
+        }
         rvCallLog?.smoothScrollToPosition(0)
-//        Toast.makeText(context, "Number Selected, Please Scroll Up", Toast.LENGTH_LONG).show()
-//        etWhatsAppNum.moveCursorToVisibleOffset()
-//        nestedScrollView.parent.requestChildFocus(nestedScrollView, nestedScrollView)
-//        nestedScrollView.fullScroll(View.FOCUS_UP)
-//        (appbar.layoutParams as CoordinatorLayout.LayoutParams).behavior?.
-//            onNestedFling(coordinatorLayout, appbar, coordinatorLayout, 0F, 1000F, true)
-//        coordinatorLayout.scrollTo(0,0)
     }
 
     override fun getDefaultCallLogCountryCode(): String = spinnerCountry.defaultCountryNameCode
