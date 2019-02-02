@@ -20,7 +20,7 @@ import java.lang.Error
 
 class StatusRecyclerAdapter: Adapter<StatusRecyclerAdapter.StatusViewHolder> {
     private var activity: Activity
-    private var fileDirectory: File
+    private lateinit var fileDirectory: File
     private var fileList: MutableList<File>
     private lateinit var fileObserver: FileObserver
     private var mOptions: AdapterOptions
@@ -28,23 +28,28 @@ class StatusRecyclerAdapter: Adapter<StatusRecyclerAdapter.StatusViewHolder> {
     private var hasReadExtStoragePermission: Boolean
 
     constructor(activity: Activity, fileDirectory: File, onStatusAdapPerm: OnStatusAdapterActions? = null, _options: AdapterOptions = options()): super() {
-        if (!fileDirectory.exists()) {
-            fileDirectory.mkdirs()
-        }
-        if (!fileDirectory.isDirectory) throw Error("Bro, I expected a directory.")
         this.activity = activity
-        this.fileDirectory = fileDirectory
         this.mOptions = _options
         onStatusAdapterActions = onStatusAdapPerm
+
         if (!hasPermissions(activity, arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE))) {
             hasReadExtStoragePermission = false
             this.fileList = mutableListOf()
             onStatusAdapterActions?.adapterNotHasPermissions()
             return
+        } else {
+            hasReadExtStoragePermission = true
+            onStatusAdapterActions?.adapterHasPermissions()
         }
-        hasReadExtStoragePermission = true
-        onStatusAdapterActions?.adapterHasPermissions()
-        this.fileList = fileDirectory.listFiles().filter { isFileImageVideo(it) }.toMutableList()
+
+        if (!fileDirectory.exists()) {
+            fileDirectory.mkdirs()
+        }
+        if (!fileDirectory.isDirectory) throw Error("Bro, I expected a directory.")
+        this.fileDirectory = fileDirectory
+
+
+        this.fileList = getFileDirectory(fileDirectory)
         if (this.fileList.size == 0) {
             onStatusAdapterActions?.adapterEmptyStatusDirectory()
         }
@@ -97,7 +102,7 @@ class StatusRecyclerAdapter: Adapter<StatusRecyclerAdapter.StatusViewHolder> {
     fun refresh() {
         if (hasReadExtStoragePermission) {
             onStatusAdapterActions?.adapterHasPermissions()
-            this.fileList = fileDirectory.listFiles().filter { isFileImageVideo(it) }.toMutableList()
+            this.fileList = getFileDirectory(fileDirectory)
             if (this.fileList.size == 0) {
                 onStatusAdapterActions?.adapterEmptyStatusDirectory()
             }
@@ -105,6 +110,14 @@ class StatusRecyclerAdapter: Adapter<StatusRecyclerAdapter.StatusViewHolder> {
         } else {
             onStatusAdapterActions?.adapterNotHasPermissions()
         }
+    }
+
+    private fun getFileDirectory(directory: File): MutableList<File> {
+        return directory.listFiles()
+                    .filter { isFileImageVideo(it) }
+                    //Sort with most recently modified (created) file first
+                    .sortedWith(Comparator {f1, f2 -> if (f1.lastModified() > f2.lastModified()) -1 else 1})
+                    .toMutableList()
     }
     abstract class StatusViewHolder: RecyclerView.ViewHolder {
         constructor(view: View) : super(view)
