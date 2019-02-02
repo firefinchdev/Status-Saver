@@ -18,6 +18,7 @@ import com.softinit.whatsdirect.adapters.PreviewViewPagerAdapter
 import com.softinit.whatsdirect.extended.ImageViewTouchViewPager
 import com.softinit.whatsdirect.utils.DIR_SAVED_STATUS
 import com.softinit.whatsdirect.utils.FileType
+import com.softinit.whatsdirect.utils.getDeleteStatusDialog
 import com.softinit.whatsdirect.utils.getRenameStatusDialog
 import org.apache.commons.io.FileUtils
 import java.io.File
@@ -113,11 +114,13 @@ class PreviewActivity : AppCompatActivity(), View.OnClickListener {
                 startActivity(Intent.createChooser(i, "Share with"))
             }
             R.id.fab_delete -> {
-                if (!srcFile.isDirectory) {
-                    srcFile.delete()
-                    Toast.makeText(this, "Deleted", Toast.LENGTH_SHORT).show()
-                    finish()
-                }
+                getDeleteStatusDialog(this@PreviewActivity) {
+                    if (!srcFile.isDirectory) {
+                        srcFile.delete()
+                        Toast.makeText(this, "Deleted", Toast.LENGTH_SHORT).show()
+                        finish()
+                    }
+                }.show()
             }
         }
     }
