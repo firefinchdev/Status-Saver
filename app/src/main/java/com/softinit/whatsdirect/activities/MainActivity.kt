@@ -42,7 +42,8 @@ class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener {
             askedForPermissionsOnce = true
             ActivityCompat.requestPermissions(this, PERMISSIONS, KEY_REQUEST_PERMISSION)
         }
-
+        //Intentionally crash app
+        //throw RuntimeException("Boom!")
     }
     private fun setupIds() {
         mViewPager = findViewById(R.id.mainViewPager)
@@ -63,7 +64,6 @@ class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener {
     }
 
     //TODO: Dont allow SEND btn if phone number is black
-    //TODO: Remove keyboard on fragment scroll
     //TODO: Last selected country
     override fun onBackPressed() {
         if (mViewPager.currentItem != 0) {

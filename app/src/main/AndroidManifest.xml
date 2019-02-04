@@ -12,8 +12,15 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".activities.PreviewActivity"
-                  android:theme="@style/AppTheme.PreviewActivity">
+        <activity android:name=".activities.ErrorActivity"
+                  android:process=":error_activity">
+            <intent-filter>
+                <action android:name="cat.ereza.customactivityoncrash.ERROR" />
+            </intent-filter>
+        </activity>
+        <activity
+                android:name=".activities.PreviewActivity"
+                android:theme="@style/AppTheme.PreviewActivity">
         </activity>
         <activity android:name=".activities.MainActivity">
             <intent-filter>

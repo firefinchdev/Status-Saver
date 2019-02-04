@@ -24,6 +24,7 @@ import com.softinit.whatsdirect.adapters.CallLogRVAdapter
 import com.softinit.whatsdirect.interfaces.OnCallLogSelectedListener
 import com.softinit.whatsdirect.utils.getWhatsAppPackage
 import com.softinit.whatsdirect.utils.hasPermissions
+import com.softinit.whatsdirect.utils.sendIntent
 import com.softinit.whatsdirect.utils.setAdapterWithViewHeight
 import io.michaelrocks.libphonenumber.android.Phonenumber
 import java.net.URLEncoder
@@ -92,7 +93,11 @@ class MessageFragment: androidx.fragment.app.Fragment(), View.OnClickListener, O
 
     override fun onClick(v: View?) {
         when(v?.id) {
-            R.id.btn_send -> sendIntent(cbPreferBusiness.isChecked)
+            R.id.btn_send -> {
+                val phone = "${spinnerCountry.selectedCountryCode}${etWhatsAppNum.text}"
+                val message = etMessage.text.toString()
+                sendIntent(context!!, phone, message,cbPreferBusiness.isChecked)
+            }
             R.id.ll_permission_error -> {
                 if (!hasPermissions(context, arrayOf(Manifest.permission.READ_CALL_LOG))) {
                     ActivityCompat.requestPermissions((activity as Activity), arrayOf(Manifest.permission.READ_CALL_LOG), MainActivity.KEY_REQUEST_CALL_LOG_PERMISSION)
@@ -100,28 +105,6 @@ class MessageFragment: androidx.fragment.app.Fragment(), View.OnClickListener, O
             }
             else -> return
         }
-    }
-
-    private fun sendIntent(preferBusiness: Boolean = false) {
-        val packageManager: PackageManager? = context?.packageManager
-        if (packageManager != null) {
-            val phone = "${spinnerCountry.selectedCountryCode}${etWhatsAppNum.text}"
-            val message = etMessage.text.toString()
-            val intent: Intent = Intent(Intent.ACTION_VIEW)
-            val url = "https://api.whatsapp.com/send?phone=$phone&text=${URLEncoder.encode(message, "UTF-8")}"
-            try {
-                intent.setPackage(getWhatsAppPackage(context, preferBusiness, packageManager))
-                intent.data = Uri.parse(url)
-                intent.resolveActivity(packageManager)?.let {
-                    context?.startActivity(intent)
-                } ?: run {
-                    Toast.makeText(context, "WhatsApp not found", Toast.LENGTH_SHORT).apply { setGravity(Gravity.TOP, 0, 0) }.show()
-                }
-            } catch (e: PackageManager.NameNotFoundException) {
-                Toast.makeText(context, "WhatsApp not found", Toast.LENGTH_SHORT).apply { setGravity(Gravity.TOP, 0, 0) }.show()
-            }
-        }
-
     }
 
     override fun onCallLogSelect(phoneNumber: Phonenumber.PhoneNumber, postition: Int) {

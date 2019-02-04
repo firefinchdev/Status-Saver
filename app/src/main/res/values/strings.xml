@@ -10,4 +10,7 @@
     <string name="send">SEND</string>
     <string name="prefer_business_app">Prefer Business App*</string>
     <string name="sel_from_call_log">Select from recent call logs</string>
+    <string name="activity_error_msg">We\'re very sorry that the app has crashed. Please report the details so that we
+        can resolve the issue in future.
+    </string>
 </resources>
