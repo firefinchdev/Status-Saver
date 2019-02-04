@@ -13,6 +13,7 @@ import com.softinit.whatsdirect.utils.FileType.TYPE_VIDEO
 import com.softinit.whatsdirect.utils.FileType.getFileType
 import com.softinit.whatsdirect.utils.FileType.isFileImageVideo
 import com.softinit.whatsdirect.utils.hasPermissions
+import com.softinit.whatsdirect.utils.listMediaFiles
 import com.softinit.whatsdirect.viewholders.ImageViewHolder
 import com.softinit.whatsdirect.viewholders.VideoViewHolder
 import java.io.File
@@ -49,7 +50,7 @@ class StatusRecyclerAdapter: Adapter<StatusRecyclerAdapter.StatusViewHolder> {
         this.fileDirectory = fileDirectory
 
 
-        this.fileList = getFileDirectory(fileDirectory)
+        this.fileList = listMediaFiles(fileDirectory)
         if (this.fileList.size == 0) {
             onStatusAdapterActions?.adapterEmptyStatusDirectory()
         }
@@ -102,7 +103,7 @@ class StatusRecyclerAdapter: Adapter<StatusRecyclerAdapter.StatusViewHolder> {
     fun refresh() {
         if (hasReadExtStoragePermission) {
             onStatusAdapterActions?.adapterHasPermissions()
-            this.fileList = getFileDirectory(fileDirectory)
+            this.fileList = listMediaFiles(fileDirectory)
             if (this.fileList.size == 0) {
                 onStatusAdapterActions?.adapterEmptyStatusDirectory()
             }
@@ -112,13 +113,6 @@ class StatusRecyclerAdapter: Adapter<StatusRecyclerAdapter.StatusViewHolder> {
         }
     }
 
-    private fun getFileDirectory(directory: File): MutableList<File> {
-        return directory.listFiles()
-                    .filter { isFileImageVideo(it) }
-                    //Sort with most recently modified (created) file first
-                    .sortedWith(Comparator {f1, f2 -> if (f1.lastModified() > f2.lastModified()) -1 else 1})
-                    .toMutableList()
-    }
     abstract class StatusViewHolder: RecyclerView.ViewHolder {
         constructor(view: View) : super(view)
         abstract fun bindView(file: File)

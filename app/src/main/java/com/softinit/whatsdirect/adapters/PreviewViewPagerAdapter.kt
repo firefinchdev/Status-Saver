@@ -15,6 +15,7 @@ import com.softinit.whatsdirect.BuildConfig
 import com.softinit.whatsdirect.GlideApp
 import com.softinit.whatsdirect.R
 import com.softinit.whatsdirect.utils.FileType
+import com.softinit.whatsdirect.utils.listMediaFiles
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -79,7 +80,7 @@ class PreviewViewPagerAdapter: PagerAdapter {
         if (!init) {
             var newMediaList: MutableList<File> = mutableListOf()
             withContext(Dispatchers.Default) {
-                newMediaList = initialFile.parentFile.listFiles().filter{ FileType.isFileImageVideo(it) }.toMutableList()
+                newMediaList = listMediaFiles(initialFile.parentFile)
             }
             withContext(Dispatchers.Main) {
                 mediaDirectory.clear()
