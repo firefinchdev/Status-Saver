@@ -2,11 +2,7 @@ package com.softinit.whatsdirect.fragments
 
 import android.Manifest
 import android.app.Activity
-import android.content.Intent
-import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Bundle
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,12 +18,11 @@ import com.softinit.whatsdirect.R
 import com.softinit.whatsdirect.activities.MainActivity
 import com.softinit.whatsdirect.adapters.CallLogRVAdapter
 import com.softinit.whatsdirect.interfaces.OnCallLogSelectedListener
-import com.softinit.whatsdirect.utils.getWhatsAppPackage
 import com.softinit.whatsdirect.utils.hasPermissions
 import com.softinit.whatsdirect.utils.sendIntent
-import com.softinit.whatsdirect.utils.setAdapterWithViewHeight
+import com.softinit.whatsdirect.extensions.setAdapterWithViewHeight
+import com.softinit.whatsdirect.extensions.setupClearButtonWithAction
 import io.michaelrocks.libphonenumber.android.Phonenumber
-import java.net.URLEncoder
 
 class MessageFragment: androidx.fragment.app.Fragment(), View.OnClickListener, OnCallLogSelectedListener {
 
@@ -76,6 +71,8 @@ class MessageFragment: androidx.fragment.app.Fragment(), View.OnClickListener, O
 
     private fun initiate(view: View) {
         btnSend.setOnClickListener(this)
+        etWhatsAppNum.setupClearButtonWithAction()
+        etMessage.setupClearButtonWithAction()
         llPermissionError.setOnClickListener(this)
 
         if (hasPermissions(context, arrayOf(Manifest.permission.READ_CALL_LOG))) {

@@ -1,4 +1,4 @@
-package com.softinit.whatsdirect.utils
+package com.softinit.whatsdirect.extensions
 
 import androidx.recyclerview.widget.RecyclerView
 
