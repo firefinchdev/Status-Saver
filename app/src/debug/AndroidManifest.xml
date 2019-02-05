@@ -9,7 +9,7 @@
     <application android:vmSafeMode="true">
         <provider
                 android:name="androidx.core.content.FileProvider"
-                android:authorities="com.softinit.whatsdirect.debug"
+                android:authorities="com.firefinch.whatsassistant.debug"
                 tools:replace="android:authorities"
                 android:exported="false"
                 android:grantUriPermissions="true">
