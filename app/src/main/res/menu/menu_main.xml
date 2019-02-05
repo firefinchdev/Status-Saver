@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:context=".activity.MainActivity">
+
+    <item
+            android:icon="@drawable/share"
+            android:id="@+id/action_share"
+            android:title="@string/toolbar_share"
+            app:showAsAction="ifRoom"/>
+    <item
+            android:id="@+id/action_rate"
+            android:title="@string/toolbar_rate_app"
+            app:showAsAction="never"/>
+    <item
+            android:id="@+id/action_improve"
+            android:title="@string/toolbar_help_improve"
+            app:showAsAction="never"/>
+    <item
+            android:id="@+id/action_about"
+            android:title="@string/toolbar_about"
+            app:showAsAction="never"/>
+</menu>

@@ -12,9 +12,11 @@ import android.Manifest
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.view.Menu
+import android.view.MenuItem
 import android.view.inputmethod.InputMethodManager
 import androidx.core.app.ActivityCompat
-import com.softinit.whatsdirect.utils.hasPermissions
+import com.softinit.whatsdirect.utils.*
 
 class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener {
 
@@ -25,7 +27,6 @@ class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener {
         private var askedForPermissionsOnce = false
     }
     private lateinit var mMainViewPagerAdapter: MainViewPagerAdapter
-
     private lateinit var mViewPager: androidx.viewpager.widget.ViewPager
 
     private lateinit var mTabLayout: TabLayout
@@ -118,5 +119,20 @@ class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener {
                 }
             }
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when(item?.itemId) {
+            R.id.action_share -> startActivity(AppIntent.share(this@MainActivity))
+            R.id.action_rate -> AppIntent.startPlayStore(this@MainActivity)
+            R.id.action_improve -> startActivity(AppIntent.devMail(this@MainActivity))
+            R.id.action_about -> startActivity(Intent(this@MainActivity, AboutActivity::class.java))
+        }
+        return true
     }
 }

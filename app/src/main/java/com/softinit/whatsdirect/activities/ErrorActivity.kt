@@ -7,7 +7,7 @@ import android.widget.Button
 import cat.ereza.customactivityoncrash.CustomActivityOnCrash
 import cat.ereza.customactivityoncrash.config.CaocConfig
 import com.softinit.whatsdirect.R
-import com.softinit.whatsdirect.utils.sendIntent
+import com.softinit.whatsdirect.utils.AppIntent
 
 class ErrorActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -47,7 +47,9 @@ class ErrorActivity : AppCompatActivity(), View.OnClickListener {
             R.id.btn_restart -> CustomActivityOnCrash.restartApplication(this@ErrorActivity, config!!)
             R.id.btn_report -> {
                 val msg: String? = CustomActivityOnCrash.getStackTraceFromIntent(intent)
-                sendIntent(this@ErrorActivity, "919999771449", msg ?: "", true)
+                startActivity(AppIntent.devMail(this@ErrorActivity,
+                    "Error in ${getString(R.string.app_name)}",
+                    "Following Error occurred on my device:\n\n${msg ?: ""}"))
             }
         }
     }

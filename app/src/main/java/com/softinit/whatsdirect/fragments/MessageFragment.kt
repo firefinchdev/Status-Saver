@@ -19,9 +19,9 @@ import com.softinit.whatsdirect.activities.MainActivity
 import com.softinit.whatsdirect.adapters.CallLogRVAdapter
 import com.softinit.whatsdirect.interfaces.OnCallLogSelectedListener
 import com.softinit.whatsdirect.utils.hasPermissions
-import com.softinit.whatsdirect.utils.sendIntent
 import com.softinit.whatsdirect.extensions.setAdapterWithViewHeight
 import com.softinit.whatsdirect.extensions.setupClearButtonWithAction
+import com.softinit.whatsdirect.utils.AppIntent
 import io.michaelrocks.libphonenumber.android.Phonenumber
 
 class MessageFragment: androidx.fragment.app.Fragment(), View.OnClickListener, OnCallLogSelectedListener {
@@ -93,7 +93,7 @@ class MessageFragment: androidx.fragment.app.Fragment(), View.OnClickListener, O
             R.id.btn_send -> {
                 val phone = "${spinnerCountry.selectedCountryCode}${etWhatsAppNum.text}"
                 val message = etMessage.text.toString()
-                sendIntent(context!!, phone, message,cbPreferBusiness.isChecked)
+                AppIntent.sendIntent(context!!, phone, message,cbPreferBusiness.isChecked)
             }
             R.id.ll_permission_error -> {
                 if (!hasPermissions(context, arrayOf(Manifest.permission.READ_CALL_LOG))) {
