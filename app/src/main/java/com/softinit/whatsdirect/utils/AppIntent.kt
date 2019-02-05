@@ -35,7 +35,7 @@ object AppIntent {
     fun share(context: Context): Intent = Intent(Intent.ACTION_SEND)
         .apply {
             putExtra(Intent.EXTRA_TEXT, "Hey check out this cool app at: " +
-                    "http://play.google.com/store/apps/details?id=${context.packageName}. " +
+                    "http://play.google.com/store/apps/details?id=${context.packageName} " +
                     "You can now WhatsApp someone without saving the number. " +
                     "You can also save and share WhatsApp statuses.")
             type = "text/plain"

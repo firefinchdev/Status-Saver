@@ -2,66 +2,67 @@
 <FrameLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        xmlns:tools="http://schemas.android.com/tools">
     <ImageView
             android:src="@drawable/background2"
             android:scaleType="centerCrop"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
-        <androidx.cardview.widget.CardView
-                android:id="@+id/layout_error_permission"
+    <androidx.cardview.widget.CardView
+            android:id="@+id/layout_error_permission"
+            android:background="?android:attr/selectableItemBackground"
+            android:elevation="100dp"
+            android:layout_marginTop="40dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        <LinearLayout
+                android:id="@+id/ll_permission_error"
                 android:background="?android:attr/selectableItemBackground"
-                android:elevation="100dp"
-                android:layout_marginTop="40dp"
-                android:layout_gravity="center_horizontal"
+                android:paddingEnd="10dp"
+                android:gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
-            <LinearLayout
-                    android:id="@+id/ll_permission_error"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:paddingEnd="10dp"
-                    android:gravity="center"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-                <ImageView
-                        android:layout_margin="10dp"
-                        android:src="@drawable/error"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"/>
-                <TextView
-                        android:text="Please grant required permissions to access Whatsapp statuses."
-                        android:layout_width="150dp"
-                        android:layout_height="wrap_content"/>
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-        <androidx.cardview.widget.CardView
-                android:visibility="gone"
-                android:id="@+id/layout_no_status"
+            <ImageView
+                    android:layout_margin="10dp"
+                    android:src="@drawable/error"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"/>
+            <TextView
+                    android:text="Please grant required permissions to access Whatsapp statuses."
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
+            android:visibility="gone"
+            android:id="@+id/layout_no_status"
+            android:background="?android:attr/selectableItemBackground"
+            android:elevation="100dp"
+            android:layout_marginTop="40dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        <LinearLayout
                 android:background="?android:attr/selectableItemBackground"
-                android:elevation="100dp"
-                android:layout_marginTop="40dp"
-                android:layout_gravity="center_horizontal"
+                android:paddingEnd="10dp"
+                android:gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
-            <LinearLayout
-                    android:background="?android:attr/selectableItemBackground"
-                    android:paddingEnd="10dp"
-                    android:gravity="center"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-                <ImageView
-                        android:layout_margin="10dp"
-                        android:src="@drawable/warning"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"/>
-                <TextView
-                        android:paddingTop="20dp"
-                        android:paddingBottom="20dp"
-                        android:text="No Statuses Found. Please open a status in WhatsApp first and then you can save them."
-                        android:layout_width="150dp"
-                        android:layout_height="wrap_content"/>
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
+            <ImageView
+                    android:layout_margin="10dp"
+                    android:src="@drawable/warning"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"/>
+            <TextView
+                    android:paddingTop="20dp"
+                    android:paddingBottom="20dp"
+                    android:text="No Statuses Found. Please open a status in WhatsApp first and then you can save them."
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
     <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
@@ -71,6 +72,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
             <androidx.recyclerview.widget.RecyclerView
+                    tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    tools:spanCount="2"
+                    tools:listitem="@layout/list_item_image_status"
                     android:id="@+id/rv_statuses"
                     android:padding="4dp"
                     android:layout_width="match_parent"
