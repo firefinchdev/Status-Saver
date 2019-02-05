@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.FileProvider
@@ -38,6 +39,7 @@ class PreviewActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var fabShare: FloatingActionButton
     private lateinit var fabDelete: FloatingActionButton
     private lateinit var coordinatorLayout: CoordinatorLayout
+    private lateinit var ivHome: ImageView
     private var allowSave: Boolean = false
     private var allowShare: Boolean = false
     private var allowDelete: Boolean = false
@@ -76,10 +78,11 @@ class PreviewActivity : AppCompatActivity(), View.OnClickListener {
         fabShare = findViewById(R.id.fab_share)
         fabDelete = findViewById(R.id.fab_delete)
         coordinatorLayout = findViewById(R.id.preview_coordinator_layout)
+        ivHome = findViewById(R.id.iv_home)
     }
 
     private fun setup() {
-        listOf(fabSave, fabShare, fabDelete).forEach {
+        listOf(fabSave, fabShare, fabDelete, ivHome).forEach {
             it.setOnClickListener(this)
         }
         setupMediaViewPager(mediaFile)
@@ -122,6 +125,7 @@ class PreviewActivity : AppCompatActivity(), View.OnClickListener {
                     }
                 }.show()
             }
+            R.id.iv_home -> finish()
         }
     }
 
