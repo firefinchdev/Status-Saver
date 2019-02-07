@@ -6,17 +6,26 @@ apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'kotlin-kapt'
 
+apply plugin: 'com.jaredsburrows.license'
+
+licenseReport {
+    generateHtmlReport = true
+    generateJsonReport = true
+    copyHtmlReportToAssets = true
+    copyJsonReportToAssets = true
+}
+
 android {
-    signingConfigs {
-        /*debug {
-            keyAlias 'android'
-            keyPassword 'android'
-            storeFile file('/Users/anirudh/.android/debug.keystore')
-            storePassword 'android'
-        }*/
-        release {
-        }
-    }
+//    signingConfigs {
+//        /*debug {
+//            keyAlias 'android'
+//            keyPassword 'android'
+//            storeFile file('/Users/anirudh/.android/debug.keystore')
+//            storePassword 'android'
+//        }*/
+//        release {
+//        }
+//    }
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.firefinch.whatsassistant"
@@ -31,7 +40,6 @@ android {
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-//            signingConfig signingConfigs.release
         }
         debug {
             minifyEnabled false
@@ -39,7 +47,6 @@ android {
 //            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             applicationIdSuffix ".debug"
             versionNameSuffix "-debug"
-//            signingConfig signingConfigs.debug
         }
     }
 }
@@ -73,4 +80,7 @@ dependencies {
 
     implementation 'cat.ereza:customactivityoncrash:2.2.0'
     //    implementation project(':dialogspinner')
+
+    // run ./gradlew licenseReleaseReport to generate license file
+    // More info: https://github.com/jaredsburrows/gradle-license-plugin
 }
