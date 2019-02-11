@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView
-        app:cardCornerRadius="4dp"
+        app:cardCornerRadius="0dp"
         android:layout_margin="@dimen/margin_status_thumbnail"
         android:orientation="vertical"
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" xmlns:app="http://schemas.android.com/apk/res-auto">
+        android:layout_height="wrap_content"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
 
 
     <ImageView
+            tools:background="@mipmap/ic_launcher"
+            tools:backgroundTint="#83D3CFCF"
             android:id="@+id/iv_status_image"
             android:adjustViewBounds="true"
             android:layout_width="match_parent"

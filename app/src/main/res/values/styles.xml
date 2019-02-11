@@ -24,6 +24,13 @@
     <style name="AppTheme" parent="AppTheme.Base">
         <item name="actionBarStyle">@style/AppTheme.ActionBar</item>
         <item name="android:buttonStyle">@style/AppTheme.Button</item>
+        <item name="android:actionOverflowButtonStyle">@style/AppTheme.OverFlow</item>
+    </style>
+
+    <!--<style name="AppTheme.OverFlow" parent="@android:style/Widget.Holo.Light.ActionButton.Overflow">-->
+    <style name="AppTheme.OverFlow" parent="Widget.AppCompat.ActionButton.Overflow">
+        <item name="android:tint">@color/white</item>
+        <!--<item name="android:src">@drawable/vertical_dots</item>-->
     </style>
 
     <style name="AppTheme.PreviewActivity" parent="AppTheme">
@@ -44,6 +51,11 @@
         <item name="android:textSize">14sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textAllCaps">true</item>
+    </style>
+    <style name="AppTheme.DialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
     </style>
 
 </resources>

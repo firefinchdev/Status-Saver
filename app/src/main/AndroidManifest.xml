@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.softinit.whatsdirect">
+          package="com.firefinch.whatsassistant">
 
     <uses-permission android:name="android.permission.READ_CALL_LOG"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
@@ -12,10 +12,20 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".activities.PreviewActivity"
-                  android:theme="@style/AppTheme.PreviewActivity">
+        <activity android:name="com.firefinch.whatsassistant.activities.AboutActivity">
         </activity>
-        <activity android:name=".activities.MainActivity">
+        <activity
+                android:name="com.firefinch.whatsassistant.activities.ErrorActivity"
+                android:process=":error_activity">
+            <intent-filter>
+                <action android:name="cat.ereza.customactivityoncrash.ERROR"/>
+            </intent-filter>
+        </activity>
+        <activity
+                android:name="com.firefinch.whatsassistant.activities.PreviewActivity"
+                android:theme="@style/AppTheme.PreviewActivity">
+        </activity>
+        <activity android:name="com.firefinch.whatsassistant.activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <action android:name="android.intent.action.VIEW"/>
@@ -25,7 +35,7 @@
         </activity>
         <provider
                 android:name="androidx.core.content.FileProvider"
-                android:authorities="com.softinit.whatsdirect"
+                android:authorities="com.firefinch.whatsassistant"
                 android:exported="false"
                 android:grantUriPermissions="true">
             <meta-data
