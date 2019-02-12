@@ -1,5 +1,6 @@
 package com.firefinch.whatsassistant.adapters
 
+import android.content.Context
 import androidx.fragment.app.Fragment
 import com.firefinch.whatsassistant.fragments.MessageFragment
 import com.firefinch.whatsassistant.fragments.SavedStatusFragment
@@ -7,14 +8,20 @@ import com.firefinch.whatsassistant.fragments.StatusFragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 
-class MainViewPagerAdapter(fm: FragmentManager): FragmentPagerAdapter(fm) {
+class MainViewPagerAdapter(
+    private val context: Context,
+    fm: FragmentManager): FragmentPagerAdapter(fm) {
 
     companion object {
         const val POS_MESSAGE = 0
         const val POS_STATUS = 1
         const val POS_SAVED_STATUS = 2
     }
-    private val pages: Array<Fragment> = arrayOf(MessageFragment(), StatusFragment(), SavedStatusFragment())
+    private val MESSAGE_FRAGMENT = MessageFragment()
+    private val STATUS_FRAGMENT = StatusFragment()
+    private val SAVED_STATUS_FRAGMENT = SavedStatusFragment()
+
+    private val pages: Array<Fragment> = arrayOf(MESSAGE_FRAGMENT, STATUS_FRAGMENT, SAVED_STATUS_FRAGMENT)
 
     override fun getItem(position: Int): Fragment {
         return when(position) {
@@ -34,5 +41,7 @@ class MainViewPagerAdapter(fm: FragmentManager): FragmentPagerAdapter(fm) {
         }
     }
 
-    fun refreshSavedStatus() = (pages[POS_SAVED_STATUS] as SavedStatusFragment).refresh()
+    fun refreshSavedStatus() = SAVED_STATUS_FRAGMENT.refresh()
+
+    fun setDirectPhoneNumber(phoneNum: String) = MESSAGE_FRAGMENT.scheduleDirectPhoneNumber(phoneNum)
 }
