@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.TextView
+import com.firefinch.whatsassistant.BuildConfig
 import com.firefinch.whatsassistant.R
 import com.firefinch.whatsassistant.utils.AppIntent
 import com.firefinch.whatsassistant.utils.getOpenSourceDialog
@@ -12,6 +14,7 @@ class AboutActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var btnOSLicense: Button
     private lateinit var btnPrivacyPolicy: Button
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_about)
@@ -19,7 +22,9 @@ class AboutActivity : AppCompatActivity(), View.OnClickListener {
         btnOSLicense = findViewById(R.id.btn_licenses)
         btnPrivacyPolicy = findViewById(R.id.btn_privacy_policy)
 
-        listOf(btnOSLicense,btnPrivacyPolicy).forEach { it.setOnClickListener(this)}
+        findViewById<TextView>(R.id.tv_app_version).text = "Version v${BuildConfig.VERSION_NAME}"
+
+        listOf(btnOSLicense, btnPrivacyPolicy).forEach { it.setOnClickListener(this)}
     }
     override fun onClick(v: View?) {
         when(v?.id) {
