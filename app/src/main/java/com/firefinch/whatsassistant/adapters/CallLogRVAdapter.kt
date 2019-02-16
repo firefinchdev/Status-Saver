@@ -81,9 +81,9 @@ class CallLogRVAdapter : CursorRecyclerViewAdapter<CallLogRVAdapter.CallLogViewH
             })
 
             llRoot.setOnClickListener {
-                val phoneNumberUtil = PhoneNumberUtil.createInstance(context)
-                val phoneNumber: Phonenumber.PhoneNumber = phoneNumberUtil.parse(phoneNum, callLogSelectedListener?.getDefaultCallLogCountryCode())
-                callLogSelectedListener?.onCallLogSelect(phoneNumber, adapterPosition)
+//                val phoneNumberUtil = PhoneNumberUtil.createInstance(context)
+//                val phoneNumber: Phonenumber.PhoneNumber = phoneNumberUtil.parse(phoneNum, callLogSelectedListener?.getDefaultCallLogCountryCode())
+                callLogSelectedListener?.onCallLogSelect(phoneNum, adapterPosition)
             }
         }
     }

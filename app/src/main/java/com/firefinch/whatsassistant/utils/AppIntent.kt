@@ -70,4 +70,12 @@ object AppIntent {
             }
         return Intent.createChooser(i, "Send Email...")
     }
+
+    fun viewInBrowser(url: String): Intent {
+        var localUrl = url
+        if (!localUrl.startsWith("http://") && !localUrl.startsWith("https://")) {
+            localUrl = "http://$localUrl"
+        }
+        return Intent(Intent.ACTION_VIEW).setData(Uri.parse(localUrl))
+    }
 }

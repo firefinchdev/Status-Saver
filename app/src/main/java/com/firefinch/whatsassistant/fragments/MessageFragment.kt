@@ -22,6 +22,7 @@ import com.firefinch.whatsassistant.utils.hasPermissions
 import com.firefinch.whatsassistant.extensions.setAdapterWithViewHeight
 import com.firefinch.whatsassistant.extensions.setupClearButtonWithAction
 import com.firefinch.whatsassistant.utils.AppIntent
+import io.michaelrocks.libphonenumber.android.PhoneNumberUtil
 import io.michaelrocks.libphonenumber.android.Phonenumber
 
 class MessageFragment: androidx.fragment.app.Fragment(), View.OnClickListener, OnCallLogSelectedListener {
@@ -36,6 +37,7 @@ class MessageFragment: androidx.fragment.app.Fragment(), View.OnClickListener, O
     private lateinit var nestedScrollView: NestedScrollView
     private lateinit var appbar: AppBarLayout
     private lateinit var llPermissionError: LinearLayout
+    private var directPhoneNum: String? = null
 
     private val listItemCallLogHeight = R.dimen.height_item_call_item  //Change when updating list_item_call_log.xml
 
@@ -74,6 +76,10 @@ class MessageFragment: androidx.fragment.app.Fragment(), View.OnClickListener, O
         etWhatsAppNum.setupClearButtonWithAction()
         etMessage.setupClearButtonWithAction()
         llPermissionError.setOnClickListener(this)
+        directPhoneNum?.let {
+            setDirectPhoneNumber(it)
+            directPhoneNum = null
+        }
 
         if (hasPermissions(context, arrayOf(Manifest.permission.READ_CALL_LOG))) {
             llPermissionError.visibility = View.GONE
@@ -104,14 +110,24 @@ class MessageFragment: androidx.fragment.app.Fragment(), View.OnClickListener, O
         }
     }
 
-    override fun onCallLogSelect(phoneNumber: Phonenumber.PhoneNumber, postition: Int) {
-        spinnerCountry.setCountryForPhoneCode(phoneNumber.countryCode)
-        etWhatsAppNum.setText(phoneNumber.nationalNumber.toString())
+    override fun onCallLogSelect(phoneNumber: String, position: Int) {
+        setDirectPhoneNumber(phoneNumber)
         appbar.setExpanded(true, true)
-        if (postition > CALL_LOG_SMOOTH_SCROLL_LIMIT) {
+        if (position > CALL_LOG_SMOOTH_SCROLL_LIMIT) {
             rvCallLog?.scrollToPosition(CALL_LOG_SMOOTH_SCROLL_LIMIT)
         }
         rvCallLog?.smoothScrollToPosition(0)
+    }
+
+    fun setDirectPhoneNumber(phoneNum: String) {
+        val phoneNumberUtil = PhoneNumberUtil.createInstance(context)
+        val phoneNumber: Phonenumber.PhoneNumber = phoneNumberUtil.parse(phoneNum, getDefaultCallLogCountryCode())
+        spinnerCountry.setCountryForPhoneCode(phoneNumber.countryCode)
+        etWhatsAppNum.setText(phoneNumber.nationalNumber.toString())
+    }
+
+    fun scheduleDirectPhoneNumber(phoneNum: String) {
+        directPhoneNum = phoneNum
     }
 
     override fun getDefaultCallLogCountryCode(): String = spinnerCountry.defaultCountryNameCode

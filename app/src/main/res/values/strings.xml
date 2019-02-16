@@ -17,4 +17,7 @@
     <string name="toolbar_rate_app">Rate Us</string>
     <string name="toolbar_about">About</string>
     <string name="toolbar_help_improve">Help improve</string>
+    <string name="privacy_policy_url">
+        http://htmlpreview.github.io/?https://github.com/firefinchdev/whatsassistant-privacy-policy/blob/master/privacy_policy.html
+    </string>
 </resources>

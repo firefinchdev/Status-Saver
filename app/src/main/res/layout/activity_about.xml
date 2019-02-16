@@ -37,15 +37,32 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
             <TextView
+                    android:id="@+id/tv_app_version"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                    tools:text="Version 1.0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            <TextView
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                     android:text="Made by firefinchdev"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
-            <Button
-                    android:text="Open Source Licenses"
-                    android:id="@+id/btn_licenses"
+            <LinearLayout
+                    android:orientation="vertical"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content">
+                <Button
+                        android:text="Privacy Policy"
+                        android:id="@+id/btn_privacy_policy"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                <Button
+                        android:text="Open Source Licenses"
+                        android:id="@+id/btn_licenses"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+            </LinearLayout>
+
 
         </LinearLayout>
 

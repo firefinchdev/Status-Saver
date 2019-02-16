@@ -86,3 +86,5 @@ fastlane/readme.md
 .Trashes
 ehthumbs.db
 Thumbs.db
+app_keystore.key
+keystore.properties

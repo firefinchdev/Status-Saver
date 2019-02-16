@@ -11,6 +11,7 @@ import android.Manifest
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.inputmethod.InputMethodManager
@@ -42,9 +43,20 @@ class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener {
             askedForPermissionsOnce = true
             ActivityCompat.requestPermissions(this, PERMISSIONS, KEY_REQUEST_PERMISSION)
         }
+
+        handleIntent()
         //Intentionally crash app
         //throw RuntimeException("Boom!")
     }
+
+    private fun handleIntent() {
+        when(intent?.action) {
+            Intent.ACTION_VIEW, Intent.ACTION_DIAL -> {
+                mMainViewPagerAdapter.setDirectPhoneNumber(intent.data?.toString()?.substring(4) ?: "")
+            }
+        }
+    }
+
     private fun setupIds() {
         mViewPager = findViewById(R.id.mainViewPager)
         mTabLayout = findViewById(R.id.mainTabLayout)
@@ -56,7 +68,7 @@ class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener {
     }
 
     private fun setupViewPager() {
-        mMainViewPagerAdapter = MainViewPagerAdapter(supportFragmentManager)
+        mMainViewPagerAdapter = MainViewPagerAdapter(this, supportFragmentManager)
 
         mViewPager.adapter = mMainViewPagerAdapter
         mTabLayout.setupWithViewPager(mViewPager)
@@ -90,7 +102,13 @@ class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener {
     override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
 
     private fun restart() {
-        startActivity(Intent(this, MainActivity::class.java))
+        startActivity(Intent(this, MainActivity::class.java).apply {
+            // Apply any intents passed to activity before restart
+            // Phone Number intent-filter for DIAL - Start
+            action = intent.action
+            data = intent.data
+            // Phone Number intent-filter for DIAL - End
+        })
         overridePendingTransition(0, 0)
         finish()
     }
