@@ -9,7 +9,7 @@
     <application android:vmSafeMode="true">
         <provider
                 android:name="androidx.core.content.FileProvider"
-                android:authorities="com.firefinch.statussaver.debug"
+                android:authorities="com.firefinch.wastatus.debug"
                 tools:replace="android:authorities"
                 android:exported="false"
                 android:grantUriPermissions="true">

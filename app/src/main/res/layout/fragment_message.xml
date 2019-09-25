@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
     <ImageView
-            android:src="@drawable/background2"
-            android:scaleType="centerCrop"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/background2" />
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:id="@+id/coordinator_fragment_message"
             android:layout_width="match_parent"
@@ -17,155 +18,230 @@
             android:paddingStart="@dimen/margin_msg_fragment"
             android:paddingEnd="@dimen/margin_msg_fragment"
             android:paddingBottom="@dimen/margin_msg_fragment">
+
         <com.google.android.material.appbar.AppBarLayout
-                android:layout_marginTop="@dimen/margin_msg_fragment"
                 android:id="@+id/appbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_msg_fragment"
                 android:fitsSystemWindows="true">
+
             <com.google.android.material.appbar.CollapsingToolbarLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
                 <androidx.cardview.widget.CardView
-                        android:elevation="20dp"
-                        app:cardElevation="5dp"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:elevation="20dp"
+                        app:cardElevation="5dp">
+
                     <LinearLayout
-                            android:padding="@dimen/padding_card_view_fragment_msg"
-                            android:orientation="vertical"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:padding="@dimen/padding_card_view_fragment_msg">
+
                         <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
                                 android:gravity="center"
-                                android:text="@string/sel_cc_enter_wa_no"
                                 android:paddingLeft="10dp"
                                 android:paddingRight="10dp"
                                 android:paddingBottom="10dp"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"/>
+                                android:text="@string/sel_cc_enter_wa_no" />
+
                         <LinearLayout
-                                android:orientation="horizontal"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
                             <com.hbb20.CountryCodePicker
                                     android:id="@+id/spinner_country"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    app:ccp_showFullName="false"
-                                    app:ccp_showPhoneCode="true"
-                                    app:ccp_showNameCode="true"
                                     app:ccp_autoDetectCountry="true"
-                                    app:ccp_countryPreference="US,IN,NZ"/>
+                                    app:ccp_countryPreference="US,IN,NZ"
+                                    app:ccp_showFullName="false"
+                                    app:ccp_showNameCode="true"
+                                    app:ccp_showPhoneCode="true" />
 
                         </LinearLayout>
+
                         <com.google.android.material.textfield.TextInputLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content">
+
                             <EditText
-                                    android:inputType="number"
                                     android:id="@+id/edit_text_whatsapp_no"
-                                    android:hint="@string/enter_wa_no"
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"/>
+                                    android:layout_height="wrap_content"
+                                    android:hint="@string/enter_wa_no"
+                                    android:inputType="number" />
                         </com.google.android.material.textfield.TextInputLayout>
+
                         <com.google.android.material.textfield.TextInputLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content">
+
                             <EditText
-                                    android:inputType="textCapSentences"
                                     android:id="@+id/edit_text_whatsapp_message"
-                                    android:maxHeight="180dp"
-                                    android:minHeight="70dp"
-                                    android:hint="@string/enter_msg"
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"/>
+                                    android:layout_height="wrap_content"
+                                    android:hint="@string/enter_msg"
+                                    android:inputType="textCapSentences"
+                                    android:maxHeight="180dp"
+                                    android:minHeight="70dp" />
                         </com.google.android.material.textfield.TextInputLayout>
+
                         <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content">
+
                             <LinearLayout
-                                    android:gravity="center_vertical"
-                                    android:layout_weight="1"
                                     android:layout_width="0dp"
-                                    android:layout_height="match_parent">
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:gravity="center_vertical">
+
                                 <CheckBox
-                                        android:text="@string/prefer_business_app"
                                         android:id="@+id/cb_prefer_business"
                                         android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"/>
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/prefer_business_app" />
                             </LinearLayout>
+
                             <Button
                                     android:id="@+id/btn_send"
-                                    android:text="@string/send"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"/>
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/send" />
                         </LinearLayout>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
+
                 <androidx.appcompat.widget.Toolbar
-                        android:backgroundTint="@color/colorAccent"
                         android:id="@+id/toolbar"
                         android:layout_width="match_parent"
                         android:layout_height="?attr/actionBarSize"
-                        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                        app:layout_collapseMode="pin"/>
+                        android:backgroundTint="@color/colorAccent"
+                        app:layout_collapseMode="pin"
+                        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
             </com.google.android.material.appbar.CollapsingToolbarLayout>
         </com.google.android.material.appbar.AppBarLayout>
-        <!--<androidx.core.widget.NestedScrollView-->
-                <!--android:id="@+id/nested_scroll_view"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:fillViewport="true"-->
-                <!--app:layout_behavior="@string/appbar_scrolling_view_behavior">-->
-            <androidx.cardview.widget.CardView
-                    android:elevation="20dp"
-                    app:cardElevation="5dp"
-                    android:layout_width="match_parent"
-                    android:layout_marginTop="@dimen/margin_msg_fragment"
-                    android:layout_height="wrap_content"
-                    app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
+        <LinearLayout
+                android:layout_marginTop="@dimen/margin_msg_fragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_marginBottom="@dimen/margin_msg_fragment"
+                    android:id="@+id/ll_clipboard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:padding="10dp">
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="CLIPBOARD" />
                 <LinearLayout
-                        android:orientation="vertical"
-                        android:padding="@dimen/padding_card_view_fragment_msg"
+                        android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+                    <ImageView
+                            android:layout_gravity="center"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:layout_margin="5dp"
+                            android:src="@drawable/info_128" />
+                    <LinearLayout
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content">
+                        <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Start chat with" />
+                        <TextView
+                                android:id="@+id/tv_cb_phone"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="0000000000" />
+                    </LinearLayout>
+
+                    <Button
+                            android:id="@+id/btn_cb_send"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/send" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <androidx.cardview.widget.CardView
+                    android:id="@+id/cardViewCallLogs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:elevation="20dp"
+                    app:cardElevation="5dp">
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="@dimen/padding_card_view_fragment_msg">
+
                     <TextView
-                            android:text="@string/sel_from_call_log"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="wrap_content"
+                            android:text="@string/sel_from_call_log" />
+
                     <LinearLayout
                             android:id="@+id/ll_permission_error"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
                             android:background="?android:attr/selectableItemBackground"
-                            android:paddingStart="50dp"
-                            android:paddingEnd="50dp"
-                            android:paddingTop="20dp"
-                            android:paddingBottom="20dp"
                             android:gravity="center"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:paddingStart="50dp"
+                            android:paddingTop="20dp"
+                            android:paddingEnd="50dp"
+                            android:paddingBottom="20dp">
+
                         <ImageView
-                                android:layout_margin="10dp"
-                                android:src="@drawable/error"
                                 android:layout_width="48dp"
-                                android:layout_height="48dp"/>
+                                android:layout_height="48dp"
+                                android:layout_margin="10dp"
+                                android:src="@drawable/error" />
+
                         <TextView
-                                android:text="Please grant required permissions to access Call logs"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
+                                android:layout_height="wrap_content"
+                                android:text="Please grant required permissions to access Call logs" />
                     </LinearLayout>
+
                     <androidx.recyclerview.widget.RecyclerView
-                            android:nestedScrollingEnabled="true"
-                            tools:listitem="@layout/list_item_call_log"
                             android:id="@+id/rv_call_log"
-                            android:layout_weight="1"
                             android:layout_width="match_parent"
-                            android:layout_height="0dp"/>
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:nestedScrollingEnabled="true"
+                            tools:listitem="@layout/list_item_call_log" />
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
-        <!--</androidx.core.widget.NestedScrollView>-->
+        </LinearLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </FrameLayout>

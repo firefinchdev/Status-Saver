@@ -1,1 +1,1 @@
-include ':app', ':dialogspinner'
+include ':app'
