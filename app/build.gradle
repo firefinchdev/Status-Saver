@@ -36,12 +36,12 @@ android {
     }
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.firefinch.wastatus"
         minSdkVersion 22
         targetSdkVersion 28
         versionCode 1
         versionName "0.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        flavorDimensions "default"
     }
     buildTypes {
         release {
@@ -55,6 +55,14 @@ android {
 //            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             applicationIdSuffix ".debug"
             versionNameSuffix "-debug"
+        }
+    }
+    productFlavors {
+        playstore {
+            applicationId "com.firefinch.wastatus"
+        }
+        full {
+            applicationId "com.firefinch.wastatus.full"
         }
     }
 }
