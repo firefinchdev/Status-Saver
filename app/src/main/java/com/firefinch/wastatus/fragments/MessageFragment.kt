@@ -16,7 +16,6 @@ import com.google.android.material.appbar.AppBarLayout
 import com.hbb20.CountryCodePicker
 import com.firefinch.wastatus.R
 import com.firefinch.wastatus.activities.MainActivity
-import com.firefinch.wastatus.adapters.CallLogRVAdapter
 import com.firefinch.wastatus.interfaces.OnCallLogSelectedListener
 import com.firefinch.wastatus.utils.hasPermissions
 import com.firefinch.wastatus.extensions.setAdapterWithViewHeight
@@ -87,16 +86,19 @@ class MessageFragment: androidx.fragment.app.Fragment(), View.OnClickListener, O
             directPhoneNum = null
         }
 
-        if (hasPermissions(context, arrayOf(Manifest.permission.READ_CALL_LOG))) {
-            llPermissionError.visibility = View.GONE
-            rvCallLog?.layoutManager = LinearLayoutManager(context)
-            rvCallLog?.setAdapterWithViewHeight(CallLogRVAdapter(context!!, this),
-                activity?.resources?.getDimension(listItemCallLogHeight)?.toInt()
-            )
-//            rvCallLog?.adapter = CallLogRVAdapter(context!!, this)
-        } else {
-//            ActivityCompat.requestPermissions((activity as Activity), arrayOf(Manifest.permission.READ_CALL_LOG), MainActivity.KEY_REQUEST_PERMISSION)
-        }
+            // TODO: Fix this
+///*
+//        if (hasPermissions(context, arrayOf(Manifest.permission.READ_CALL_LOG))) {
+//            llPermissionError.visibility = View.GONE
+//            rvCallLog?.layoutManager = LinearLayoutManager(context)
+//            rvCallLog?.setAdapterWithViewHeight(CallLogRVAdapter(context!!, this),
+//                activity?.resources?.getDimension(listItemCallLogHeight)?.toInt()
+//            )
+////            rvCallLog?.adapter = CallLogRVAdapter(context!!, this)
+//        } else {
+////            ActivityCompat.requestPermissions((activity as Activity), arrayOf(Manifest.permission.READ_CALL_LOG), MainActivity.KEY_REQUEST_PERMISSION)
+//        }
+//*/
 
         // Disable call log view for now
         view.findViewById<View>(R.id.cardViewCallLogs).visibility = View.GONE
