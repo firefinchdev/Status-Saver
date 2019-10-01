@@ -11,20 +11,20 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name="com.firefinch.wastatus.activities.AboutActivity">
+        <activity android:name=".activities.AboutActivity">
         </activity>
         <activity
-                android:name="com.firefinch.wastatus.activities.ErrorActivity"
+                android:name=".activities.ErrorActivity"
                 android:process=":error_activity">
             <intent-filter>
                 <action android:name="cat.ereza.customactivityoncrash.ERROR"/>
             </intent-filter>
         </activity>
         <activity
-                android:name="com.firefinch.wastatus.activities.PreviewActivity"
+                android:name=".activities.PreviewActivity"
                 android:theme="@style/AppTheme.PreviewActivity">
         </activity>
-        <activity android:name="com.firefinch.wastatus.activities.MainActivity">
+        <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <action android:name="android.intent.action.VIEW"/>
