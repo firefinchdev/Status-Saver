@@ -11,7 +11,7 @@ object FileType {
 
     fun getFileType(file: File): Int {
         if (file.isDirectory) return FileType.TYPE_DIRECTORY
-        URLConnection.guessContentTypeFromName(file.name).let {
+        URLConnection.guessContentTypeFromName(file.name)?.let {
             if (it.startsWith("image")) return FileType.TYPE_IMAGE
             if (it.startsWith("video")) return FileType.TYPE_VIDEO
         }
